@@ -21,6 +21,21 @@ module.exports = function(grunt) {
                      ' * License: <%= pkg.license %>',
                      ' */\n'].join('\n')
         },
+        watch: {
+            docs: {
+                files: ['misc/demo/index.html'],
+                tasks: ['after-test']
+            },
+            html: {
+                files: ['templates/**/*.html', 'src/**/*md'],
+                tasks: ['default']
+            },
+            js: {
+                files: ['src/**/*.js'],
+                //we don't need to jshint here, it slows down everything else
+                tasks: ['default']
+            }
+        },
         concat: {
             dist: {
                 options: {
@@ -184,9 +199,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-html2js');
 
-    grunt.registerTask('test', ['jshint', 'jasmine']);
+    grunt.registerTask('before-test', ['jshint', 'html2js']);
+    grunt.registerTask('test', ['jasmine']);
+    grunt.registerTask('after-test', ['build', 'copy']);
+    grunt.registerTask('default', ['before-test', 'test', 'after-test']);
     grunt.registerTask('build', 'Build PROSO Apps -- javascript', function() {
         var _ = grunt.util._;
 
