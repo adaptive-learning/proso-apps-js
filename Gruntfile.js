@@ -54,6 +54,7 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     module: null,
+                    base: '.',
                 },
                 files: [{
                     expand: true,
@@ -198,6 +199,16 @@ module.exports = function(grunt) {
         var modules = grunt.config('modules');
         grunt.config('srcModules', _.pluck(modules, 'moduleName'));
         grunt.config('tplModules', _.pluck(modules, 'tplModules').filter(function(tpls) { return tpls.length > 0;} ));
+        grunt.config('demoModules', modules
+            .filter(function(module) {
+                return module.docs.md && module.docs.js && module.docs.html;
+            })
+            .sort(function(a, b) {
+                if (a.name < b.name) { return -1; }
+                if (a.name > b.name) { return 1; }
+                return 0;
+            })
+        );
 
         var moduleFileMapping = _.clone(modules, true);
         moduleFileMapping.forEach(function (module) {
@@ -215,7 +226,6 @@ module.exports = function(grunt) {
         grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
             .concat(srcFiles).concat(tpljsFiles));
 
-        grunt.task.run(['html2js', 'uglify', 'concat']);
+        grunt.task.run(['html2js', 'uglify', 'concat', 'copy']);
     });
-    grunt.registerTask('demo', ['copy']);
 };
