@@ -37,7 +37,7 @@ describe("User Service", function() {
     };
     var error = { "error_type": "error_type", "error": "error"};
 
-    beforeEach(module('proso_apps.services'));
+    beforeEach(module('proso.apps.user-user'));
 
     beforeEach(inject(function($injector) {
         $httpBackend = $injector.get('$httpBackend');

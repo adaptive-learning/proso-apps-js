@@ -4,8 +4,7 @@ if (loggingServiceLoaded){
 }
 loggingServiceLoaded = true;
 
-var m;
-try{ m = angular.module('proso_apps.services'); } catch (err) { m = angular.module('proso_apps.services', []); }
+var m = angular.module('proso.apps.common-logging', []);
 
 m.factory("loggingService", ["$window", function($window) {
     if (!!$window.loggingService){

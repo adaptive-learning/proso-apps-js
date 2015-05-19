@@ -1,4 +1,4 @@
-try{ var m = angular.module('proso_apps.services'); } catch (err) { m = angular.module('proso_apps.services', ['ngCookies']); }
+var m = angular.module('proso.apps.flashcards-practice', ['ngCookies', 'proso.apps.common-config']);
 m.service("practiceService", ["$http", "$q", "configService", "$cookies", function($http, $q, configService, $cookies){
     var self = this;
 

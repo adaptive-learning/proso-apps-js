@@ -40,7 +40,7 @@ describe("Practice Service - flashcards", function() {
         return flashcards;
     };
 
-    beforeEach(module('proso_apps.services', "ngCookies"));
+    beforeEach(module('proso.apps.flashcards-practice', "ngCookies"));
 
     beforeEach(module(function ($provide) { $provide.service("configService", configServiceMock); }));
 
@@ -365,7 +365,7 @@ describe("Practice Service - answers", function() {
     };
 
 
-    beforeEach(module('proso_apps.services', "ngCookies"));
+    beforeEach(module('proso.apps.flashcards-practice', "ngCookies"));
     beforeEach(module(function ($provide) { $provide.service("configService", configServiceMock); }));
 
     beforeEach(inject(function($injector) {

@@ -16,7 +16,7 @@ var config = {
 describe("Config Service", function() {
     var $httpBackend, $configService;
 
-    beforeEach(module('proso_apps.services', "ngCookies"));
+    beforeEach(module('proso.apps.common-config', "ngCookies"));
 
     beforeEach(inject(function($injector) {
         $httpBackend = $injector.get('$httpBackend');

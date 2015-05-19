@@ -20,7 +20,7 @@ function obj2get(obj, prefix, ignore_prefix_keys){
     return str;
 }
 
-try{ var m = angular.module('proso_apps.services'); } catch (err) { m = angular.module('proso_apps.services', ['ngCookies']); }
+var m = angular.module('proso.apps.common-config', ['ngCookies']);
 
 m.factory("configService", ["$http", "$window", "$cookieStore", function($http, $window, $cookieStore){
     if (!!$window.configService){
