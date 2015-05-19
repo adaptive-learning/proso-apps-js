@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ "Write to us" | trans }}</h3>
+</div>
+<div class="modal-body">
+    <label>
+      {{ "Did you find a bug in the app? Do you have an improvement idea? Or any other comment? We are eager to hear anything you'd like to tell us." | trans }}
+    </label>
+    <textarea ng-model="feedback.text" class="form-control" rows="8" ></textarea>
+    <label>
+      {{ "Your email address (optional)" | trans }}
+    </label>
+    <input type="text" ng-model="feedback.email" class="form-control"/>
+    <br>
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
+<div class="modal-footer">
+    <button ng-disabled="sending" class="btn btn-primary" ng-click="send()">
+      {{ "Send" | trans }}
+    </button>
+    <button class="btn btn-danger" ng-click="cancel()">
+      {{ "Close" | trans }}
+    </button>
+</div>
+
