@@ -12,7 +12,7 @@ m.controller('RatingModalController', ['$scope', '$rootScope', '$modal', functio
 
     $scope.open = function() {
         if ($scope.email) {
-            $scope.feedback.email = $scope.email
+            $scope.feedback.email = $scope.email;
         }
 
         $modal.open({
