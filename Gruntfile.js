@@ -27,14 +27,14 @@ module.exports = function(grunt) {
                     banner: '<%= meta.banner %><%= meta.modules %>\n',
                 },
                 src: [], //src filled in by build task
-                dest: '<%= dist %>/<%= filename %>-<%= pkg.version %>.js'
+                dest: '<%= dist %>/<%= filename %>.js'
             },
             dist_tpls: {
                 options: {
                     banner: '<%= meta.banner %><%= meta.all %>\n<%= meta.tplmodules %>\n',
                 },
                 src: [], //src filled in by build task
-                dest: '<%= dist %>/<%= filename %>-tpls-<%= pkg.version %>.js'
+                dest: '<%= dist %>/<%= filename %>-tpls.js'
             }
         },
         jasmine : {
