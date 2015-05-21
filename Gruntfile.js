@@ -183,7 +183,6 @@ module.exports = function(grunt) {
              module.cssJs = styles.js.join('\n');
         }
 
-        console.log(module);
         module.dependencies.forEach(findModule);
         grunt.config('modules', grunt.config('modules').concat(module));
     }
