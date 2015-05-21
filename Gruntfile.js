@@ -97,7 +97,7 @@ module.exports = function(grunt) {
             options: {
                 sourceMap: true,
                 sourceMapIncludeSources: true,
-                sourceMapName: '<%= pkg.name %>.min.js.map',
+                sourceMapName: '<%= dist %>/<%= pkg.name %>.min.js.map',
                 banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n\n',
             },
             dist: {
@@ -105,7 +105,7 @@ module.exports = function(grunt) {
                     'src/**/*.js',
                     'templates/**/*.js',
                 ],
-                dest: 'dist/<%= pkg.name %>.min.js',
+                dest: '<%= dist %>/<%= pkg.name %>.min.js',
             }
         },
         copy: {
