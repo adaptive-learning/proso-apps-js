@@ -16,6 +16,15 @@ module.exports = function(grunt) {
             modules: 'angular.module("proso.apps", [<%= srcModules %>]);',
             tplmodules: 'angular.module("proso.apps.tpls", [<%= tplModules %>]);',
             all: 'angular.module("proso.apps", ["proso.apps.tpls", <%= srcModules %>]);',
+            gettext: [
+                'angular.module("proso.apps.gettext", [])',
+                '.value("gettext", window.gettext || function(x){return x;})',
+                '.filter("trans", ["gettext", function(gettext) {',
+                '    return function(msgid) {',
+                '        return gettext(msgid);',
+                '    };',
+                '}]);'
+            ].join('\n'),
             cssInclude: '',
             cssFileBanner: '/* Include this file in your html if you are using the CSP mode. */\n\n',
             cssFileDest: '<%= dist %>/<%= filename %>-csp.css',
@@ -58,7 +67,7 @@ module.exports = function(grunt) {
         concat: {
             dist: {
                 options: {
-                    banner: '<%= meta.banner %><%= meta.modules %>\n',
+                    banner: '<%= meta.banner %><%= meta.modules %>\n<%= meta.gettext %>\n',
                     footer: '<%= meta.cssInclude %>'
                 },
                 src: [], //src filled in by build task
@@ -66,7 +75,7 @@ module.exports = function(grunt) {
             },
             dist_tpls: {
                 options: {
-                    banner: '<%= meta.banner %><%= meta.all %>\n<%= meta.tplmodules %>\n',
+                    banner: '<%= meta.banner %><%= meta.all %>\n<%= meta.tplmodules %>\n<%= meta.gettext %>\n',
                     footer: '<%= meta.cssInclude %>'
                 },
                 src: [], //src filled in by build task

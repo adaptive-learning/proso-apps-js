@@ -1,12 +1,4 @@
-var m = angular.module('proso.apps.feedback-rating', ['ui.bootstrap']);
-
-m.value('gettext', window.gettext || function(x){return x;});
-
-m.filter('trans', ['gettext', function(gettext) {
-    return function(msgid) {
-        return gettext(msgid);
-    };
-}]);
+var m = angular.module('proso.apps.feedback-rating', ['ui.bootstrap', 'proso.apps.gettext']);
 
 m.controller('RatingModalController', ['$scope', '$rootScope', '$modal', function ($scope, $rootScope, $modal) {
 
