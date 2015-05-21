@@ -1,0 +1,38 @@
+<div id="proso-toolbar">
+    <div id="config-bar-show-button" ng-click="opened = !opened" ng-hide="opened"> proso bar </div>
+
+    <div id="config-bar" ng-cloak ng-show="opened">
+        <div id="config-bar-header">
+            <span id="config-bar-hide" ng-click="opened = !opened">Close</span>
+        </div>
+        <ul id="config-bar-content">
+            <li>
+                <span ng-click="addToOverride(propertyToOverride)" class="add-to-override">+</span>
+                <input type="text" ng-model="propertyToOverride" id="config-bar-property-name" placeholder="Property Name" />
+            </li>
+            <li>
+                <span ng-click="removeOverridden('user'); overridden.user = null;" class="reset">X</span>
+                <input type="number" ng-model="overridden.user" placeholder="User" ng-change="override('user', overridden.user)" />
+            </li>
+            <li>
+                <span ng-click="removeOverridden('time'); overridden.time= null;" class="reset">X</span>
+                <input type="text" ng-model="overridden.time" placeholder="Time" ng-change="override('time', overridden.time)" />
+                <i>{{date | date:'yyyy-MM-dd_HH:mm:ss'}}</i>
+            </li>
+            <li ng-repeat="(name, value) in getOverridden() track by name">
+                <span class="reset" ng-click="removeOverridden(name)">X</span>
+                <input type="text" disabled class="property-name" ng-model="name" />
+                <input type="text" class="property-value" placeholder="Value" ng-model="value" ng-change="override(name, value)" />
+            </li>
+            <div class='section' ng-click="loggingOpened = !loggingOpened">Logging</div>
+            <ul id="config-bar-logging" ng-cloak ng-show="loggingOpened">
+                <li ng-repeat="event in debugLog|limitTo:100" class="logging-event">
+                    <span class="level">{{ event.level }}</span>
+                    <span class="url">{{ event.url }}</span>
+                    <span class="filename">{{ event.filename }}:{{ event.line_number }}</span>
+                    <span class="message">{{ event.message }}</span>
+                </li>
+            </ul>
+        </ul>
+    </div>
+</div>
