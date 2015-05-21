@@ -25,6 +25,21 @@ module.exports = function(grunt) {
                      ' * License: <%= pkg.license %>',
                      ' */\n'].join('\n')
         },
+        shell: {
+            bower: {
+                command: [
+                    'cd <%= dist %>',
+                    'if [ ! -d proso-apps-js-bower ]; then git clone git@github.com:adaptive-learning/proso-apps-js-bower.git; fi',
+                    'cp *.js proso-apps-js-bower',
+                    'cp *.css proso-apps-js-bower',
+                    'cp *.map proso-apps-js-bower',
+                    'cd proso-apps-js-bower',
+                    'git add .',
+                    'git commit -m "automatic update"',
+                    'git push origin master',
+                ].join(' && ')
+            }
+        },
         watch: {
             docs: {
                 files: ['misc/demo/index.html'],
@@ -247,11 +262,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-html2js');
+    grunt.loadNpmTasks('grunt-shell');
 
     grunt.registerTask('before-test', ['jshint', 'html2js']);
     grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('after-test', ['build', 'copy']);
     grunt.registerTask('default', ['before-test', 'test', 'after-test']);
+    grunt.registerTask('bower', ['shell:bower']);
     grunt.registerTask('build', 'Build PROSO Apps -- javascript', function() {
         var _ = grunt.util._;
 
