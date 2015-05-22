@@ -8,6 +8,7 @@ module.exports = function(grunt) {
         ngversion: '1.3.13',
         bsversion: '3.1.1',
         uibsversion: '0.13.0',
+        angticsversion: '0.17.2',
         modules: [],
         pkg: grunt.file.readJSON('package.json'),
         dist: 'dist',
