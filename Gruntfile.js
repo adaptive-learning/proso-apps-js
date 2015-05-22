@@ -51,16 +51,15 @@ module.exports = function(grunt) {
         },
         watch: {
             docs: {
-                files: ['misc/demo/index.html'],
+                files: ['misc/demo/index.html', 'src/**/*.md', 'src/**/*.html'],
                 tasks: ['after-test']
             },
             html: {
-                files: ['templates/**/*.html', 'src/**/*md'],
+                files: ['templates/**/*.html'],
                 tasks: ['default']
             },
             js: {
                 files: ['src/**/*.js'],
-                //we don't need to jshint here, it slows down everything else
                 tasks: ['default']
             }
         },
