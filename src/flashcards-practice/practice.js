@@ -145,7 +145,16 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
     };
 
     self.getSummary = function(){
-        return summary;
+        var s = angular.copy(summary);
+        for (var i = 0; i < Math.min(s.flashcards.length, s.answers.length); i++){
+            var answer = s.answers[i];
+            var flashcard = s.flashcards[i];
+            if (flashcard.id === answer.flashcard_id){
+                flashcard.answer = answer;
+            }
+            answer.correct = answer.flashcard_id === answer.flashcard_answered_id;
+        }
+        return s;
     };
 
 
