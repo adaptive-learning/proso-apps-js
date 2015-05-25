@@ -124,11 +124,8 @@ module.exports = function(grunt) {
                 banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n\n',
             },
             dist: {
-                src: [
-                    'src/**/*.js',
-                    'templates/**/*.js',
-                ],
-                dest: '<%= dist %>/<%= pkg.name %>.min.js',
+                src: '<%= dist %>/<%= filename %>-tpls.js',
+                dest: '<%= dist %>/<%= filename %>.min.js',
             }
         },
         copy: {
