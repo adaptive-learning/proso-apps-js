@@ -14,8 +14,9 @@ module.exports = function(grunt) {
         dist: 'dist',
         filename: 'proso-apps',
         meta: {
-            modules: 'angular.module("proso.apps", [<%= srcModules %>]);',
+            servicemodules: 'angular.module("proso.apps", [<%= srcServiceModules %>, "proso.apps.common-toolbar"])',
             tplmodules: 'angular.module("proso.apps.tpls", [<%= tplModules %>]);',
+            toolbartplmodules: 'angular.module("proso.apps.tpls", ["templates/common-toolbar/toolbar.html"]);',
             all: 'angular.module("proso.apps", ["proso.apps.tpls", <%= srcModules %>]);',
             gettext: [
                 'angular.module("proso.apps.gettext", [])',
@@ -65,21 +66,21 @@ module.exports = function(grunt) {
             }
         },
         concat: {
-            dist: {
+            services: {
                 options: {
-                    banner: '<%= meta.banner %><%= meta.modules %>\n<%= meta.gettext %>\n',
+                    banner: '<%= meta.banner %><%= meta.servicemodules %>\n<%= meta.toolbartplmodules %>\n<%= meta.gettext %>\n',
                     footer: '<%= meta.cssInclude %>'
                 },
                 src: [], //src filled in by build task
-                dest: '<%= dist %>/<%= filename %>.js'
+                dest: '<%= dist %>/<%= filename %>-services.js'
             },
-            dist_tpls: {
+            all: {
                 options: {
                     banner: '<%= meta.banner %><%= meta.all %>\n<%= meta.tplmodules %>\n<%= meta.gettext %>\n',
                     footer: '<%= meta.cssInclude %>'
                 },
                 src: [], //src filled in by build task
-                dest: '<%= dist %>/<%= filename %>-tpls.js'
+                dest: '<%= dist %>/<%= filename %>-all.js'
             }
         },
         jasmine : {
@@ -121,12 +122,21 @@ module.exports = function(grunt) {
             options: {
                 sourceMap: true,
                 sourceMapIncludeSources: true,
-                sourceMapName: '<%= dist %>/<%= filename %>.min.js.map',
                 banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n\n',
             },
-            dist: {
-                src: '<%= dist %>/<%= filename %>-tpls.js',
-                dest: '<%= dist %>/<%= filename %>.min.js',
+            all: {
+                options: {
+                    sourceMapName: '<%= dist %>/<%= filename %>-all.min.js.map',
+                },
+                src: '<%= dist %>/<%= filename %>-all.js',
+                dest: '<%= dist %>/<%= filename %>-all.min.js',
+            },
+            services: {
+                options: {
+                    sourceMapName: '<%= dist %>/<%= filename %>-services.min.js.map',
+                },
+                src: '<%= dist %>/<%= filename %>-services.js',
+                dest: '<%= dist %>/<%= filename %>-services.min.js',
             }
         },
         copy: {
@@ -285,7 +295,9 @@ module.exports = function(grunt) {
         });
 
         var modules = grunt.config('modules');
+        var serviceModules = modules.filter(function(m) { return m.tplModules.length === 0;});
         grunt.config('srcModules', _.pluck(modules, 'moduleName'));
+        grunt.config('srcServiceModules', _.pluck(serviceModules, 'moduleName'));
         grunt.config('tplModules', _.pluck(modules, 'tplModules').filter(function(tpls) { return tpls.length > 0;} ));
         grunt.config('demoModules', modules
             .filter(function(module) {
@@ -318,12 +330,13 @@ module.exports = function(grunt) {
 
         var srcFiles = _.pluck(modules, 'srcFiles');
         var tpljsFiles = _.pluck(modules, 'tpljsFiles');
+        var srcServiceFiles = _.pluck(serviceModules, 'srcFiles');
         //Set the concat task to concatenate the given src modules
-        grunt.config('concat.dist.src', grunt.config('concat.dist.src')
-                     .concat(srcFiles));
+        grunt.config('concat.services.src', grunt.config('concat.services.src')
+                     .concat(srcServiceFiles).concat([grunt.file.expand('src/common-toolbar/*.js')]));
         //Set the concat-with-templates task to concat the given src & tpl modules
-        grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
-            .concat(srcFiles).concat(tpljsFiles));
+        grunt.config('concat.all.src', grunt.config('concat.all.src')
+            .concat(srcFiles).concat(srcFiles).concat(tpljsFiles));
 
         grunt.task.run(['html2js', 'concat', 'copy', 'uglify']);
     });
