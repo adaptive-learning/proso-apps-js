@@ -14,7 +14,8 @@ module.exports = function(grunt) {
         dist: 'dist',
         filename: 'proso-apps',
         meta: {
-            servicemodules: 'angular.module("proso.apps", [<%= srcServiceModules %>, "proso.apps.common-toolbar"])',
+            servicemodules: 'angular.module("proso.apps", ["proso.apps.tpls", <%= srcServiceModules %>, "proso.apps.common-toolbar"])',
+            modules: 'angular.module("proso.apps", [<%= srcModules %>]);',
             tplmodules: 'angular.module("proso.apps.tpls", [<%= tplModules %>]);',
             toolbartplmodules: 'angular.module("proso.apps.tpls", ["templates/common-toolbar/toolbar.html"]);',
             all: 'angular.module("proso.apps", ["proso.apps.tpls", <%= srcModules %>]);',
@@ -332,8 +333,12 @@ module.exports = function(grunt) {
         var tpljsFiles = _.pluck(modules, 'tpljsFiles');
         var srcServiceFiles = _.pluck(serviceModules, 'srcFiles');
         //Set the concat task to concatenate the given src modules
-        grunt.config('concat.services.src', grunt.config('concat.services.src')
-                     .concat(srcServiceFiles).concat([grunt.file.expand('src/common-toolbar/*.js')]));
+        grunt.config('concat.services.src',
+            grunt.config('concat.services.src')
+                .concat(srcServiceFiles)
+                .concat([grunt.file.expand('src/common-toolbar/*.js')])
+                .concat(['templates/common-toolbar/toolbar.html.js'])
+        );
         //Set the concat-with-templates task to concat the given src & tpl modules
         grunt.config('concat.all.src', grunt.config('concat.all.src')
             .concat(srcFiles).concat(srcFiles).concat(tpljsFiles));
