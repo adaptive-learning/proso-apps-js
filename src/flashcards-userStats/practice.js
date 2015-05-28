@@ -14,7 +14,7 @@ m.service("userStatsService", ["$http", "$cookies", function($http, $cookies){
     self.addGroupParams = function (id, categories, contexts, types, language) {
         filters[id] = {
             categories: categories,
-            contexts: types,
+            contexts: contexts,
             types: types
         };
         if (typeof language !== "undefined"){
