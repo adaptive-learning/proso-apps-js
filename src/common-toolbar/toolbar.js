@@ -1,6 +1,6 @@
 var m = angular.module('proso.apps.common-toolbar', ['ngCookies', 'proso.apps.common-config']);
 
-m.controller("ToolbarController", function($scope, $cookies, configService, loggingService) {
+m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggingService', '$timeout', function($scope, $cookies, configService, loggingService, $timeout) {
     $scope.override = configService.override;
     $scope.removeOverridden = configService.removeOverridden;
     $scope.date = new Date();
@@ -10,7 +10,7 @@ m.controller("ToolbarController", function($scope, $cookies, configService, logg
     $scope.override('debug', true);
     $scope.overridden = configService.getOverridden();
     loggingService.addDebugLogListener(function(events) {
-        $scope.$apply(function(){
+        $timeout(function(){
             events.forEach(function (e) {
                 $scope.debugLog.unshift(e);
             });
@@ -38,7 +38,7 @@ m.controller("ToolbarController", function($scope, $cookies, configService, logg
         return overridden;
     };
 
-});
+}]);
 
 m.directive('toolbar', [function () {
     return {
