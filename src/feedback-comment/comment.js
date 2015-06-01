@@ -2,7 +2,7 @@ var m = angular.module('proso.apps.feedback-comment', ['ui.bootstrap', 'proso.ap
 
 m.directive('feedbackComment', ['$modal', '$window', 'gettext', function ($modal, $window, gettext) {
     return {
-        restrict: 'E',
+        restrict: 'A',
         template: ['<div id="feedback">',
                    '<a href="" class="btn btn-primary" ng-click="openFeedback()">',
                    gettext('Write to us'),
