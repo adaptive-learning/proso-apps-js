@@ -119,6 +119,15 @@ describe("User Service", function() {
         expect($userService.user).toEqual(jasmine.objectContaining(test_user));
     });
 
+
+    it("load user profile with stats", function(){
+        $httpBackend.expectGET("/user/profile/?stats=true").respond(200, {data: test_user_profile});
+        $httpBackend.expectPOST("/user/session/").respond(200);
+        $userService.loadUser(true);
+        $httpBackend.flush();
+        expect($userService.user).toEqual(jasmine.objectContaining(test_user));
+    });
+
     it("fail load user profile", function(){
         $httpBackend.expectGET("/user/profile/").respond(404);
         $userService.loadUser();

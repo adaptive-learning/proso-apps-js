@@ -40,10 +40,23 @@ m.service("userService", ["$http", function($http){
         });
     };
 
+    // get public user profile from backend
+    self.getUserProfile = function(username, stats){
+        var params = {username: username};
+        if (stats){
+            params.stats = true;
+        }
+        return $http.get("/user/profile/", {params: params});
+    };
+
     // get user profile from backend
-    self.loadUser = function(){
+    self.loadUser = function(stats){
         self.status.loading = true;
-        return $http.get("/user/profile/")
+        var params = {};
+        if (stats){
+            params.stats = true;
+        }
+        return $http.get("/user/profile/", {params: params})
             .success(function(response){
                 _processUser(response.data);
             })
@@ -122,8 +135,8 @@ m.service("userService", ["$http", function($http){
     };
 
 
-    self.loadUserFromJS = function (scope) {
-        scope.$apply(self.loadUser());
+    self.loadUserFromJS = function (scope, stats) {
+        scope.$apply(self.loadUser(stats));
     };
 
     self.loadSession = function(){
