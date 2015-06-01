@@ -22,18 +22,23 @@ m.service("userStatsService", ["$http", "$cookies", function($http, $cookies){
         }
     };
 
-    self.getStats = function(mastered){
+    self.getStats = function(mastered, username){
         $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
         var params = {filters: JSON.stringify(filters)};
         if (mastered){
             params.mastered = true;
         }
+        if (username){
+            params.username = username;
+        }
         return $http.get("/flashcards/user_stats/", {params: params});
     };
 
-    self.getStatsPost = function(mastered){
+    self.getStatsPost = function(mastered, username){
         $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-        var params  = mastered ? "?mastered=true" : "";
+        var params = "?";
+        params += mastered ? "&mastered=true" : "";
+        params += username ? "&username="+username : "";
         return $http.post("/flashcards/user_stats/" + params, filters);
     };
 
