@@ -164,7 +164,17 @@ m.service("userService", ["$http", function($http){
         });
     };
 
-    self.updateProfile = function(data){
+    self.updateProfile = function(user){
+        var data = {
+          user: {},
+        };
+        if (user.profile) {
+          angular.extend(data, user.profile);
+        }
+        angular.extend(data.user, user);
+        delete data.user.profile;
+        delete data.user.username;
+
         self.status.loading = true;
         _resetError();
         var promise = $http.post("/user/profile/", data);

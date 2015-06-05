@@ -186,7 +186,7 @@ describe("User Service", function() {
     });
 
     it("update profile", function(){
-        $httpBackend.expectPOST("/user/profile/", {data: "profile data"}).respond(200, {data: test_user_profile});
+        $httpBackend.expectPOST("/user/profile/", {user: {data: "profile data"}}).respond(200, {data: test_user_profile});
         $httpBackend.expectPOST("/user/session/").respond(200);
         $userService.updateProfile({data: "profile data"});
         expect($userService.status.loading).toBeTruthy();
@@ -198,7 +198,7 @@ describe("User Service", function() {
     });
 
     it("fail update profile", function(){
-        $httpBackend.expectPOST("/user/profile/", {data: "profile data"}).respond(400, error);
+        $httpBackend.expectPOST("/user/profile/", {user: {data: "profile data"}}).respond(400, error);
         $userService.updateProfile({data: "profile data"});
         expect($userService.status.loading).toBeTruthy();
         $httpBackend.flush();
