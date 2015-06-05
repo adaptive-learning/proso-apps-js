@@ -167,8 +167,8 @@ m.service("userService", ["$http", function($http){
     self.updateProfile = function(data){
         self.status.loading = true;
         _resetError();
-        $http.post("/user/profile/", data)
-            .success(function(response){
+        var promise = $http.post("/user/profile/", data);
+        promise.success(function(response){
                 _processUser(response.data);
             })
             .error(function(response){
@@ -176,6 +176,7 @@ m.service("userService", ["$http", function($http){
             }).finally(function(response){
                 self.status.loading = false;
             });
+        return promise;
     };
 
     self.loginGoogle = function() {
