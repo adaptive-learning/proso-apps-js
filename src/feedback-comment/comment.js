@@ -41,7 +41,7 @@ m.directive('feedbackComment', ['$modal', '$window', 'gettext', function ($modal
                 $scope.send = function() {
                     feedback.page = $location.absUrl();
                     $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-                    $http.post('/feedback/', feedback).success(function(data){
+                    $http.post('/feedback/feedback/', feedback).success(function(data){
                         $scope.alerts.push({
                             type : 'success',
                             msg : gettext('Feedback jsme přijali. Děkujeme Vám za zaslané informace. Feedback od uživatelů je k nezaplacení.'),
