@@ -32,8 +32,11 @@ m.controller('LoginController', ['$scope', '$modalInstance', 'signupModal', 'use
             label: '/login/email',
         });
         userService
-            .login($scope.credentials.name, $scope.credentials.password)
-            .error($scope.onError);
+            .login($scope.credentials.username, $scope.credentials.password)
+            .error($scope.onError)
+            .success(function() {
+                $scope.cancel();
+            });
     };
 
     $scope.openSignupModal = function() {

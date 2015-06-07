@@ -93,14 +93,14 @@ m.service("userService", ["$http", function($http){
         }
     };
 
-    self.login = function(name, pass){
+    self.login = function(username, pass){
         self.status.loading = true;
         _resetError();
-        return $http.post("/user/login/", {
-            username: name,
+        var promise = $http.post("/user/login/", {
+            username: username,
             password: pass
-        })
-            .success(function(response){
+        });
+        promise.success(function(response){
                 _processUser(response.data);
             })
             .error(function(response){
@@ -109,6 +109,7 @@ m.service("userService", ["$http", function($http){
             .finally(function(response){
                 self.status.loading = false;
             });
+        return promise;
     };
 
     self.logout = function(){
