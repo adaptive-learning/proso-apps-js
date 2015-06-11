@@ -3,12 +3,6 @@ var m = angular.module('proso.apps.feedback-comment', ['ui.bootstrap', 'proso.ap
 m.directive('feedbackComment', ['$modal', '$window', 'gettext', function ($modal, $window, gettext) {
     return {
         restrict: 'A',
-        template: ['<div id="feedback">',
-                   '<a href="" class="btn btn-primary" ng-click="openFeedback()">',
-                   gettext('Write to us'),
-                   '</a>',
-                   '</div>'].join('\n'),
-
         link: function ($scope, element, attrs) {
             $scope.feedback = {
                 email: '@',
@@ -66,6 +60,8 @@ m.directive('feedbackComment', ['$modal', '$window', 'gettext', function ($modal
                     $modalInstance.dismiss('cancel');
                 };
             }];
+
+            element.bind('click', $scope.openFeedback);
         }
     };
 }]);
