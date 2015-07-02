@@ -1,6 +1,6 @@
-var m = angular.module('proso.apps.feedback-comment', ['ui.bootstrap', 'proso.apps.gettext']);
+var m = angular.module('proso.apps.feedback-comment', ['ui.bootstrap', 'gettext']);
 
-m.directive('feedbackComment', ['$modal', '$window', 'gettext', function ($modal, $window, gettext) {
+m.directive('feedbackComment', ['$modal', '$window', 'gettextCatalog', function ($modal, $window, gettextCatalog) {
     return {
         restrict: 'A',
         link: function ($scope, element, attrs) {
@@ -26,8 +26,8 @@ m.directive('feedbackComment', ['$modal', '$window', 'gettext', function ($modal
                 });
             };
 
-            var ModalFeedbackCtrl = ['$scope', '$modalInstance', '$http', '$cookies', '$location', 'feedback', 'gettext',
-                function ($scope, $modalInstance, $http, $cookies, $location, feedback, gettext) {
+            var ModalFeedbackCtrl = ['$scope', '$modalInstance', '$http', '$cookies', '$location', 'feedback', 'gettextCatalog',
+                function ($scope, $modalInstance, $http, $cookies, $location, feedback, gettextCatalog) {
 
                 $scope.feedback = feedback;
                 $scope.alerts = [];
@@ -38,14 +38,14 @@ m.directive('feedbackComment', ['$modal', '$window', 'gettext', function ($modal
                     $http.post('/feedback/feedback/', feedback).success(function(data){
                         $scope.alerts.push({
                             type : 'success',
-                            msg : gettext('Feedback jsme přijali. Děkujeme Vám za zaslané informace. Feedback od uživatelů je k nezaplacení.'),
+                            msg : gettextCatalog.getString('Thank you for the message. User feedback is very important for us.'),
                         });
                         $scope.sending = false;
                         feedback.text = '';
                     }).error(function(){
                         $scope.alerts.push({
                             type : 'danger',
-                            msg : gettext("Something wrong has happened."),
+                            msg : gettextCatalog.getString("Something wrong has happened."),
                         });
                         $scope.sending = false;
                     });

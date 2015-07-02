@@ -1,0 +1,110 @@
+msgid ""
+msgstr ""
+"Language: en\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: templates/feedback-rating/rating.html:11
+msgid "Appropriate"
+msgstr ""
+
+#: templates/feedback-comment/comment.html:21
+#: templates/feedback-rating/rating.html:26
+msgid "Close"
+msgstr ""
+
+#: templates/feedback-comment/comment.html:6
+msgid "Did you find a bug in the app? Do you have an improvement idea? Or any other comment? We are eager to hear anything you'd like to tell us."
+msgstr "Did you find a bug in the app? Do you have an improvement idea? Or any other comment? We are eager to hear anything you'd like to tell us."
+
+#: templates/feedback-rating/rating.html:18
+msgid "Don't know / Don't want to rate"
+msgstr "Don't know / Don't want to rate"
+
+#: templates/user-login/signup-modal.html:34
+msgid "E-mail"
+msgstr "E-mail"
+
+#: templates/feedback-rating/rating.html:2
+msgid "How difficult are the questions?"
+msgstr "How difficult are the questions?"
+
+#: templates/user-login/login-modal.html:31
+#: templates/user-login/signup-modal.html:42
+msgid "Password"
+msgstr "Password"
+
+#: templates/user-login/signup-modal.html:47
+msgid "Password again"
+msgstr "Password again"
+
+#: templates/user-login/signup-modal.html:58
+msgid "Registration was successful. You can continue to use the application."
+msgstr "Registration was successful. You can continue to use the application."
+
+#: templates/feedback-comment/comment.html:18
+msgid "Send"
+msgstr "Send"
+
+#: templates/user-login/login-modal.html:37
+#: templates/user-login/login-modal.html:5
+msgid "Sign In"
+msgstr "Sign In"
+
+#: templates/user-login/login-modal.html:44
+msgid "Sign Up"
+msgstr "Sign Up"
+
+#: src/feedback-comment/comment.js:48
+#: src/feedback-rating/rating.js:43
+#: src/user-login/login.js:69
+msgid "Something wrong has happened."
+msgstr "Something wrong has happened."
+
+#: src/feedback-comment/comment.js:41
+msgid "Thank you for the message. User feedback is very important for us."
+msgstr "Thank you for the message. User feedback is very important for us."
+
+#: src/feedback-rating/rating.js:37
+msgid "Thank you for your rating."
+msgstr "Thank you for your rating."
+
+#: templates/feedback-rating/rating.html:14
+msgid "Too difficult"
+msgstr "Too difficult"
+
+#: templates/feedback-rating/rating.html:8
+msgid "Too easy"
+msgstr "Too easy"
+
+#: templates/user-login/login-modal.html:27
+#: templates/user-login/signup-modal.html:38
+msgid "Username"
+msgstr "Username"
+
+#: templates/feedback-comment/comment.html:2
+msgid "Write to us"
+msgstr "Write to us"
+
+#: templates/feedback-comment/comment.html:10
+msgid "Your e-mail address (optional)"
+msgstr "Your e-mail address (optional)"
+
+#: templates/user-login/signup-modal.html:7
+msgid "and get all the benefits of registered users."
+msgstr "and get all the benefits of registered users."
+
+#: templates/user-login/signup-modal.html:27
+msgid "via E-mail"
+msgstr "via E-mail"
+
+#: templates/user-login/login-modal.html:17
+#: templates/user-login/signup-modal.html:21
+msgid "via Facebook"
+msgstr "via Facebook"
+
+#: templates/user-login/login-modal.html:11
+#: templates/user-login/signup-modal.html:15
+msgid "via Google"
+msgstr "via Google"

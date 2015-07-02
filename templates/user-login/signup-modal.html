@@ -2,9 +2,9 @@
     <button type="button" class="close" ng-click="cancel()">
         <span aria-hidden="true">&times;</span>
     </button>
-    <h3 class="modal-title"> {{ "Sign up" | trans }} </h3>
+    <h3 class="modal-title"> {{ "Sign Up" | translate }} </h3>
     <div ng-hide="success">
-        {{" and get all the benefits of registered users." | trans }}
+        {{" and get all the benefits of registered users." | translate }}
     </div>
 </div>
 <div class="modal-body" ng-hide="success">
@@ -12,50 +12,50 @@
         <a class="btn btn-danger btn-lg btn-block"
             track-click="login"
             href="/login/google-oauth2/">
-            <i class="social-google"></i> {{ "via Google" | trans }}
+            <i class="social-google"></i> {{ "via Google" | translate }}
         </a>
         <br>
         <a class="btn btn-primary btn-lg btn-block"
             track-click="login"
             href="/login/facebook/">
-            <i class="social-facebook"></i>{{ "via Facebook" | trans }}
+            <i class="social-facebook"></i>{{ "via Facebook" | translate }}
         </a>
         <br>
         <a class="btn btn-info btn-lg btn-block"
             ng-click="activateEmail=true"
             href="">
-            <i class="glyphicon glyphicon-envelope"></i> {{ "via E-mail" | trans }}
+            <i class="glyphicon glyphicon-envelope"></i> {{ "via E-mail" | translate }}
         </a>
     </div>
 
     <form role="form" ng-show="activateEmail" ng-submit="signup()">
         <div class="form-group">
             <input type="email" class="form-control" ng-model="credentials.email"
-                placeholder="{{ 'E-mail' | trans }}" required>
+                placeholder="{{ 'E-mail' | translate }}" required>
         </div>
         <div class="form-group">
             <input type="text" class="form-control" ng-model="credentials.username"
-                placeholder="{{ 'Username' | trans }}" required>
+                placeholder="{{ 'Username' | translate }}" required>
         </div>
         <div class="form-group">
             <input type="password" class="form-control" ng-model="credentials.password"
-                placeholder="{{ 'Password' | trans }}" required>
+                placeholder="{{ 'Password' | translate }}" required>
         </div>
         <div class="form-group">
             <input type="password" class="form-control"
                 ng-model="credentials.password_check"
-                placeholder="{{ 'Password again' | trans }}" required>
+                placeholder="{{ 'Password again' | translate }}" required>
         </div>
         <alert ng-repeat="alert in alerts" type="{{alert.type}}"
             close="closeAlert($index)">{{alert.msg}}</alert>
         <button ng-disabled="userService.status.loading" type="submit" class="btn btn-primary btn-block btn-lg">
-            {{ 'Sign up' | trans }}
+            {{ 'Sign Up' | translate }}
         </button>
     </form>
 </div>
 <div class="modal-body" ng-show="success" >
         <alert type="success">
-            {{ 'Registration was successful. You can continue to use the application.' | trans }}
+            {{ 'Registration was successful. You can continue to use the application.' | translate }}
         </alert>
 </div>
 

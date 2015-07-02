@@ -1,21 +1,21 @@
 <div class="modal-header text-center">
-    <h3 class="modal-title">{{ "How difficult are the questions?" | trans }}</h3>
+    <h3 class="modal-title">{{ "How difficult are the questions?" | translate }}</h3>
     {{ "Your answer helps us adjust difficulty of questions." | trans}}
 </div>
 <div class="rating modal-body">
     <div class=" text-center" ng-hide="answer">
         <a class="btn btn-lg btn-success" ng-click="vote(1)">
-            {{"Too easy" | trans }}
+            {{"Too easy" | translate }}
         </a>
         <a class="btn btn-lg btn-primary" ng-click="vote(2)">
-            {{ "Appropriate" | trans }}
+            {{ "Appropriate" | translate }}
         </a>
         <a class="btn btn-lg btn-danger" ng-click="vote(3)">
-            {{ "Too difficult" | trans }}
+            {{ "Too difficult" | translate }}
         </a>
         <div class="clearfix"></div>
         <a class="pull-right dont-know" href="" ng-click="cancel()">
-            {{ "Don't know / Don't want to rate" | trans }}
+            {{ "Don't know / Don't want to rate" | translate }}
         </a>
         <div class="clearfix"></div>
     </div>
@@ -23,7 +23,7 @@
 </div>
 <div class="modal-footer" ng-show="answer">
     <button class="btn btn-danger" ng-click="cancel()">
-        {{ "Close" | trans }}
+        {{ "Close" | translate }}
     </button>
 </div>
 

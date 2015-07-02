@@ -80,7 +80,7 @@ module.exports = function(grunt) {
                     banner: '<%= meta.banner %><%= meta.all %>\n<%= meta.tplmodules %>\n<%= meta.gettext %>\n',
                     footer: '<%= meta.cssInclude %>'
                 },
-                src: [], //src filled in by build task
+                src: ['<%= dist %>/<%= filename %>-translations.js'], //src filled in by build task
                 dest: '<%= dist %>/<%= filename %>-all.js'
             }
         },
@@ -162,6 +162,20 @@ module.exports = function(grunt) {
                 dest: 'dist/'
             }]
           }
+        },
+        nggettext_extract: {
+            pot: {
+                files: {
+                    '<%= dist %>/<%= filename %>.pot': ['templates/**/*.html', 'src/**/*.js']
+                }
+            },
+        },
+        nggettext_compile: {
+            all: {
+                files: {
+                    '<%= dist %>/<%= filename %>-translations.js': ['po/*.po']
+                }
+            },
         },
     });
 
@@ -280,6 +294,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-angular-gettext');
 
     grunt.registerTask('before-test', ['jshint', 'html2js']);
     grunt.registerTask('test', ['jasmine']);
@@ -343,6 +358,6 @@ module.exports = function(grunt) {
         grunt.config('concat.all.src', grunt.config('concat.all.src')
             .concat(srcFiles).concat(srcFiles).concat(tpljsFiles));
 
-        grunt.task.run(['html2js', 'concat', 'copy', 'uglify']);
+        grunt.task.run(['html2js', 'nggettext_compile', 'concat', 'copy', 'uglify']);
     });
 };

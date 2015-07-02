@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Language: cs\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: templates/feedback-rating/rating.html:11
+msgid "Appropriate"
+msgstr "Tak akorát"
+
+#: templates/feedback-comment/comment.html:21
+#: templates/feedback-rating/rating.html:26
+msgid "Close"
+msgstr "Zavřít"
+
+#: templates/feedback-comment/comment.html:6
+msgid "Did you find a bug in the app? Do you have an improvement idea? Or any other comment? We are eager to hear anything you'd like to tell us."
+msgstr "Narazili jste na chybu v aplikaci? Máte nápad na vylepšení? Nebo jakýkoliv jiný postřeh či komentář? Zajímá nás všechno, co nám chcete sdělit."
+
+#: templates/feedback-rating/rating.html:18
+msgid "Don't know / Don't want to rate"
+msgstr "Nevím / Nechci hodnotit"
+
+#: templates/user-login/signup-modal.html:34
+msgid "E-mail"
+msgstr "E-mail"
+
+#: templates/feedback-rating/rating.html:2
+msgid "How difficult are the questions?"
+msgstr "Jak těžké se vám zdají otázky?"
+
+#: templates/user-login/login-modal.html:31
+#: templates/user-login/signup-modal.html:42
+msgid "Password"
+msgstr "Heslo"
+
+#: templates/user-login/signup-modal.html:47
+msgid "Password again"
+msgstr "Heslo znovu"
+
+#: templates/user-login/signup-modal.html:58
+msgid "Registration was successful. You can continue to use the application."
+msgstr "Registrace proběhla úspěšně. Můžete pokračovat v používání aplikace."
+
+#: templates/feedback-comment/comment.html:18
+msgid "Send"
+msgstr "Odeslat"
+
+#: templates/user-login/login-modal.html:37
+#: templates/user-login/login-modal.html:5
+msgid "Sign In"
+msgstr "Přihlásit se"
+
+#: templates/user-login/login-modal.html:44
+#: templates/user-login/signup-modal.html:5
+#: templates/user-login/signup-modal.html:52
+msgid "Sign Up"
+msgstr "Zaregistrovat se"
+
+#: src/feedback-comment/comment.js:48
+#: src/feedback-rating/rating.js:43
+#: src/user-login/login.js:69
+msgid "Something wrong has happened."
+msgstr "V aplikaci nastala chyba."
+
+#: src/feedback-comment/comment.js:41
+msgid "Thank you for the message. User feedback is very important for us."
+msgstr "Děkujeme Vám za zaslané informace. Feedback od uživatelů je k nezaplacení."
+
+#: src/feedback-rating/rating.js:37
+msgid "Thank you for your rating."
+msgstr "Děkujeme za vaše hodnocení."
+
+#: templates/feedback-rating/rating.html:14
+msgid "Too difficult"
+msgstr "Příliš těžké"
+
+#: templates/feedback-rating/rating.html:8
+msgid "Too easy"
+msgstr "Příliš lehké"
+
+#: templates/user-login/login-modal.html:27
+#: templates/user-login/signup-modal.html:38
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+#: templates/feedback-comment/comment.html:2
+msgid "Write to us"
+msgstr "Napište nám"
+
+#: templates/feedback-comment/comment.html:10
+msgid "Your e-mail address (optional)"
+msgstr "Váš e-mail (nepovinné)"
+
+#: templates/user-login/signup-modal.html:7
+msgid "and get all the benefits of registered users."
+msgstr "a získejte všechny výhody registrovaných uživatelů."
+
+#: templates/user-login/signup-modal.html:27
+msgid "via E-mail"
+msgstr "přes E-mail"
+
+#: templates/user-login/login-modal.html:17
+#: templates/user-login/signup-modal.html:21
+msgid "via Facebook"
+msgstr "přes Facebook"
+
+#: templates/user-login/login-modal.html:11
+#: templates/user-login/signup-modal.html:15
+msgid "via Google"
+msgstr "přes Google"

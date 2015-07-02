@@ -1,4 +1,4 @@
-var m = angular.module('proso.apps.feedback-rating', ['ui.bootstrap', 'proso.apps.gettext']);
+var m = angular.module('proso.apps.feedback-rating', ['ui.bootstrap', 'gettext']);
 
 m.controller('RatingModalController', ['$scope', '$rootScope', '$modal', function ($scope, $rootScope, $modal) {
 
@@ -24,7 +24,7 @@ m.controller('RatingModalController', ['$scope', '$rootScope', '$modal', functio
     });
 }]);
 
-m.controller('RatingModalInstanceController', ['$scope', '$modalInstance', '$http', '$cookies', 'gettext', function($scope, $modalInstance, $http, $cookies, gettext) {
+m.controller('RatingModalInstanceController', ['$scope', '$modalInstance', '$http', '$cookies', 'gettextCatalog', function($scope, $modalInstance, $http, $cookies, gettextCatalog) {
 
     $scope.alerts = [];
 
@@ -34,13 +34,13 @@ m.controller('RatingModalInstanceController', ['$scope', '$modalInstance', '$htt
         $http.post('/feedback/rating', {'value': answer}).success(function(data){
             $scope.alerts.push({
                 type : 'success',
-                msg : gettext('Thank you for your rating.'),
+                msg : gettextCatalog.getString('Thank you for your rating.'),
             });
             $scope.sending = false;
         }).error(function(){
             $scope.alerts.push({
                 type : 'danger',
-                msg : gettext("Something wrong has happened."),
+                msg : gettextCatalog.getString("Something wrong has happened."),
             });
             $scope.sending = false;
         });

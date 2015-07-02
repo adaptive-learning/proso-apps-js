@@ -1,13 +1,13 @@
 <div class="modal-header">
-    <h3 class="modal-title">{{ "Write to us" | trans }}</h3>
+    <h3 class="modal-title">{{ "Write to us" | translate }}</h3>
 </div>
 <div class="modal-body">
     <label>
-      {{ "Did you find a bug in the app? Do you have an improvement idea? Or any other comment? We are eager to hear anything you'd like to tell us." | trans }}
+      {{ "Did you find a bug in the app? Do you have an improvement idea? Or any other comment? We are eager to hear anything you'd like to tell us." | translate }}
     </label>
     <textarea ng-model="feedback.text" class="form-control" rows="8" ></textarea>
     <label>
-      {{ "Your email address (optional)" | trans }}
+      {{ "Your e-mail address (optional)" | translate }}
     </label>
     <input type="text" ng-model="feedback.email" class="form-control"/>
     <br>
@@ -15,10 +15,10 @@
 </div>
 <div class="modal-footer">
     <button ng-disabled="sending" class="btn btn-primary" ng-click="send()">
-      {{ "Send" | trans }}
+      {{ "Send" | translate }}
     </button>
     <button class="btn btn-danger" ng-click="cancel()">
-      {{ "Close" | trans }}
+      {{ "Close" | translate }}
     </button>
 </div>
 

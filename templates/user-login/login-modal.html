@@ -2,19 +2,19 @@
     <button type="button" class="close" ng-click="cancel()">
         <span aria-hidden="true">&times;</span>
     </button>
-    <h3 class="modal-title"> {{ "Sign In" | trans }} </h3>
+    <h3 class="modal-title"> {{ "Sign In" | translate }} </h3>
 </div>
 <div class="modal-body">
     <a class="btn btn-danger btn-lg btn-block"
         track-click="login"
         href="/login/google-oauth2/">
-        <i class="social-google"></i> {{ "via Google" | trans }}
+        <i class="social-google"></i> {{ "via Google" | translate }}
     </a>
     <br>
     <a class="btn btn-primary btn-lg btn-block"
         track-click="login"
         href="/login/facebook/">
-        <i class="social-facebook"></i>{{ "via Facebook" | trans }}
+        <i class="social-facebook"></i>{{ "via Facebook" | translate }}
     </a>
 
     <br>
@@ -24,24 +24,24 @@
     <form role="form" ng-submit="loginEmail()">
         <div class="form-group">
             <input type="text" class="form-control" ng-model="credentials.username"
-            placeholder="{{ 'Username' | trans }}">
+            placeholder="{{ 'Username' | translate }}">
         </div>
         <div class="form-group">
             <input type="password" class="form-control" ng-model="credentials.password"
-            placeholder="{{ 'Password' | trans }}">
+            placeholder="{{ 'Password' | translate }}">
         </div>
         <alert ng-repeat="alert in alerts" type="{{alert.type}}"
             close="closeAlert($index)">{{alert.msg}}</alert>
         <button ng-disabled="userService.status.loading" type="submit"
             class="btn btn-primary btn-block btn-lg">
-            {{ 'Sign In' | trans }}
+            {{ 'Sign In' | translate }}
         </button>
 
     </form>
 </div>
 <div class="modal-footer" >
         <a class="btn btn-link" ng-click="openSignupModal()">
-            {{ 'Sign Up' | trans }}
+            {{ 'Sign Up' | translate }}
         </a>
 
 </div>
