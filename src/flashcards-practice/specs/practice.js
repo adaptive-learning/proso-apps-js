@@ -347,6 +347,58 @@ describe("Practice Service - flashcards", function() {
     });
 });
 
+describe("Practice Service - flashcards", function() {
+    var $httpBackend, $practiceService, $timeout;
+
+    var generate_flashcards = function(limit){
+        var flashcards = [];
+        for (var i = 0; i < limit; i++){
+            flashcards.push(i);
+        }
+        return flashcards;
+    };
+
+    beforeEach(module('proso.apps.flashcards-practice', "ngCookies"));
+
+    beforeEach(module(function ($provide) { $provide.service("configService", configServiceMock); }));
+
+    beforeEach(inject(function($injector) {
+
+        $httpBackend = $injector.get('$httpBackend');
+        $timeout = $injector.get("$timeout");
+        $practiceService = $injector.get('practiceService');
+    }));
+
+    beforeEach(function(){
+        $practiceService.initSet("test");
+    });
+
+    afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it("only one request to practice resource", function(){
+        $practiceService.preloadFlashcards();
+        $practiceService.preloadFlashcards();
+        $httpBackend.expectGET(new RegExp("\/flashcards\/practice\/?.*limit="+1+"&.*"))
+            .respond(200, {data: {flashcards: generate_flashcards(1)}});
+
+        $httpBackend.flush();
+    });
+
+    it("check queue if request finished", function(){
+        $practiceService.getFlashcard();
+        $httpBackend.expectGET(new RegExp("\/flashcards\/practice\/?.*limit="+2+"&.*"))
+            .respond(200, {data: {flashcards: generate_flashcards(1)}});
+
+        $httpBackend.expectGET(new RegExp("\/flashcards\/practice\/?.*limit="+1+"&.*"))
+            .respond(200, {data: {flashcards: generate_flashcards(1)}});
+
+        $httpBackend.flush();
+    });
+});
+
 describe("Practice Service - answers", function() {
     var $httpBackend, $practiceService, $timeout;
 

@@ -196,6 +196,7 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
         loadingFlashcards = true;
         request
             .success(function(response){
+                loadingFlashcards = false;
                 if (request_in_set !== setId) {
                     return;
                 }
@@ -209,15 +210,12 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
                 }
             })
             .error(function (response) {
+                loadingFlashcards = false;
                 if (deferredFC !== null){
                     deferredFC.reject("Something went wrong while loading flashcards from backend.");
                 }
                 console.error("Something went wrong while loading flashcards from backend.");
-            })
-            .finally(function(){
-                loadingFlashcards = false;
             });
-
     };
 
     var _loadContexts = function(){
