@@ -1,7 +1,7 @@
-var m = angular.module('proso.apps.user-login', ['ui.bootstrap', 'proso.apps.gettext', 'proso.apps.user-user', 'angulartics', 'angulartics.google.analytics']);
+var m = angular.module('proso.apps.user-login', ['ui.bootstrap', 'gettext', 'proso.apps.user-user', 'angulartics', 'angulartics.google.analytics']);
 
-m.controller('LoginController', ['$scope', '$modalInstance', 'signupModal', 'userService', 'gettext', '$analytics',
-    function ($scope, $modalInstance, signupModal, userService, gettext, $analytics) {
+m.controller('LoginController', ['$scope', '$modalInstance', 'signupModal', 'userService', 'gettextCatalog', '$analytics',
+    function ($scope, $modalInstance, signupModal, userService, gettextCatalog, $analytics) {
 
     $scope.credentials = {};
     $scope.alerts = [];
@@ -66,7 +66,7 @@ m.controller('LoginController', ['$scope', '$modalInstance', 'signupModal', 'use
         });
         $scope.alerts.push({
             type: error.type || 'danger',
-            msg: error.msg || gettext('Something wrong has happened.')
+            msg: error.msg || gettextCatalog.getString('Something wrong has happened.')
         });
     };
 
