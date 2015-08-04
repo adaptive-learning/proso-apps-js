@@ -10,7 +10,7 @@
   "boss"    : true,
   "eqnull"  : true,
   "node"    : true,
-  "predef"  : ["angular", "$", "jstz", "window", "jasmine", "inject"],
+  "predef"  : ["angular", "$", "jstz", "window", "jasmine", "inject", "google", "document"],
   "globals" : {
     "it"         : false,
     "xit"        : false,

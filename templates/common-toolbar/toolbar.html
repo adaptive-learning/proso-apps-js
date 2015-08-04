@@ -24,6 +24,20 @@
                 <input type="text" disabled class="property-name" ng-model="name" />
                 <input type="text" class="property-value" placeholder="Value" ng-model="value" ng-change="override(name, value)" />
             </li>
+            <div class='section' ng-click="auditOpened = !auditOpened">Models Audit</div>
+            <ul id="config-bar-audit" ng-cloak ng-show="auditOpened">
+                <li>
+                    <input type="text" ng-model="auditLimit" placeholder="Limit" />
+                    <input type="text" ng-model="auditKey" placeholder="Key" id="config-bar-audit-key" />
+                    <input type="text" ng-model="auditUser" placeholder="User" />
+                </li>
+                <li>
+                    <input type="text" ng-model="auditPrimary" placeholder="Item Primary" />
+                    <input type="text" ng-model="auditSecondary" placeholder="Item Secondary" />
+                    <button ng-click="showAuditChart()">Show Chart</button>
+                </li>
+                <div id="auditChart"></div>
+            </ul>
             <div class='section' ng-click="loggingOpened = !loggingOpened">Logging</div>
             <ul id="config-bar-logging" ng-cloak ng-show="loggingOpened">
                 <li ng-repeat="event in debugLog|limitTo:100" class="logging-event">
