@@ -100,7 +100,14 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
             direction: currentFC.direction
         };
         if (meta) {
-            answer.meta = meta;
+            answer.meta = {client_meta: meta};
+        }
+        if (currentFC.practice_meta) {
+            if (answer.meta) {
+                answer.meta = angular.extend(answer.meta, currentFC.practice_meta);
+            } else {
+                answer.meta = currentFC.practice_meta;
+            }
         }
         if (currentFC.options){
             answer.option_ids = [];

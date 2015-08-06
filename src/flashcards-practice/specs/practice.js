@@ -459,12 +459,12 @@ describe("Practice Service - answers", function() {
         $practiceService.getFlashcard();
         $httpBackend.flush();
 
-        $httpBackend.expectPOST("/flashcards/answer/", {"answers":[{"flashcard_id":0,"flashcard_answered_id":42,"response_time":42000,"direction":"xxxs","meta":"moje meta", time_gap:0}]}).respond(200, "OK");
+        $httpBackend.expectPOST("/flashcards/answer/", {"answers":[{"flashcard_id":0,"flashcard_answered_id":42,"response_time":42000,"direction":"xxxs","meta":{"client_meta":"moje meta"}, time_gap:0}]}).respond(200, "OK");
         $practiceService.saveAnswerToCurrentFC(42, 42000, "moje meta");
         $httpBackend.flush();
 
         $practiceService.getFlashcard();
-        $httpBackend.expectPOST("/flashcards/answer/", {"answers":[{"flashcard_id":1,"flashcard_answered_id":null,"response_time":12,"direction":"xxxs","meta":"moje meta", time_gap:0}]}).respond(200, "OK");
+        $httpBackend.expectPOST("/flashcards/answer/", {"answers":[{"flashcard_id":1,"flashcard_answered_id":null,"response_time":12,"direction":"xxxs","meta":{"client_meta":"moje meta"}, time_gap:0}]}).respond(200, "OK");
         $practiceService.saveAnswerToCurrentFC(null, 12, "moje meta");
         $httpBackend.flush();
 
@@ -573,8 +573,8 @@ describe("Practice Service - answers", function() {
         $practiceService.saveAnswerToCurrentFC(null, 12, "moje meta");
 
         $httpBackend.expectPOST("/flashcards/answer/", {"answers":[
-            {"flashcard_id":0,"flashcard_answered_id":42,"response_time":42000,"direction":"xxxs","meta":"moje meta", time_gap:3},
-            {"flashcard_id":1,"flashcard_answered_id":null,"response_time":12,"direction":"xxxs","meta":"moje meta", time_gap:0}
+            {"flashcard_id":0,"flashcard_answered_id":42,"response_time":42000,"direction":"xxxs","meta":{"client_meta":"moje meta"}, time_gap:3},
+            {"flashcard_id":1,"flashcard_answered_id":null,"response_time":12,"direction":"xxxs","meta":{"client_meta":"moje meta"}, time_gap:0}
         ]}).respond(200, "OK");
         $httpBackend.flush();
 
