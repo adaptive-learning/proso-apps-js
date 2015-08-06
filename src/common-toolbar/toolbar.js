@@ -79,7 +79,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                     },
                     width: 450,
                     height: 300,
-                    'chartArea': {'width': '90%', 'height': '90%'}
+                    'chartArea': {'width': '80%', 'height': '90%'}
                 };
                 var formatter = new google.visualization.NumberFormat({
                     fractionDigits: 3, pattern: '#.###'
