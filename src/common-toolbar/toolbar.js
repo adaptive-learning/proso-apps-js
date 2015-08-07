@@ -170,7 +170,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                         format: '#.###'
                     },
                     hAxis: {
-                        title: 'Time',
+                        title: 'Update',
                         position: 'center'
                     },
                     width: 480,
