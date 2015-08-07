@@ -142,6 +142,12 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         if ($scope.auditUser) {
             params['user'] = $scope.auditUser;
         }
+        if ($scope.auditPrimary) {
+            params['item'] = $scope.auditPrimary;
+        }
+        if ($scope.auditSecondary) {
+            params['item_secondary'] = $scope.auditSecondary;
+        }
         $http.get("/models/audit/" + $scope.auditKey, {params: params})
             .success(function(response) {
                 var data = new google.visualization.DataTable();
