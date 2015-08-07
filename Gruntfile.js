@@ -12,6 +12,7 @@ module.exports = function(grunt) {
         modules: [],
         pkg: grunt.file.readJSON('package.json'),
         dist: 'dist',
+        bowerBranch: '1.1.X',
         filename: 'proso-apps',
         meta: {
             servicemodules: 'angular.module("proso.apps", ["proso.apps.tpls", <%= srcServiceModules %>, "proso.apps.common-toolbar"])',
@@ -41,14 +42,16 @@ module.exports = function(grunt) {
             bower: {
                 command: [
                     'cd <%= dist %>',
-                    'if [ ! -d proso-apps-js-bower ]; then git clone git@github.com:adaptive-learning/proso-apps-js-bower.git; fi',
-                    'cp *.js proso-apps-js-bower',
-                    'cp *.css proso-apps-js-bower',
-                    'cp *.map proso-apps-js-bower',
+                    'if [ -d proso-apps-js-bower ]; then rm -rf proso-apps-js-bower; fi',
+                    'git clone git@github.com:adaptive-learning/proso-apps-js-bower.git',
                     'cd proso-apps-js-bower',
+                    'git checkout version-<%= bowerBranch %>',
+                    'cp ../*.js .',
+                    'cp ../*.css .',
+                    'cp ../*.map .',
                     'git add .',
                     'git commit -m "automatic update"',
-                    'git push origin master',
+                    'git push origin version-<%= bowerBranch %>',
                 ].join(' && ')
             }
         },
