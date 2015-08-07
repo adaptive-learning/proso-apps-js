@@ -67,7 +67,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
 
     $scope.showFlashcardsPractice = function() {
         var params = {
-            limit: $scope.limit
+            limit: $scope.flashcardsLimit
         };
         if ($scope.flashcardsCategories) {
             params.categories = JSON.stringify(
