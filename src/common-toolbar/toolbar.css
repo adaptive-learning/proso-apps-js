@@ -135,10 +135,10 @@
 #config-bar-property-name {
     width: 70%;
 }
-#config-bar-audit, #config-bar-ab {
+#config-bar-audit, #config-bar-ab, #config-bar-flashcards {
     padding-left: 5px;
 }
-#config-bar-audit li, #config-bar-ab li {
+#config-bar-audit li, #config-bar-ab li, #config-bar-flashcards li {
     padding-left: 0;
     margin-left: 0;
     list-style: none;
@@ -152,10 +152,10 @@
     margin-left: 10px;
     width: 20%;
 }
-#config-bar-audit input {
+#config-bar-audit input, #config-bar-flashcards input {
     width: 27%;
 }
-#config-bar-audit button {
+#config-bar-audit button, #config-bar-flashcards button {
     width: 27%;
 }
 #auditChart {
@@ -165,6 +165,11 @@
 #abChart {
     margin: 0 auto;
     width: 480px;
+}
+#flashcardsChart {
+    margin: 0 auto;
+    width: 100%;
+    height: 1000px;
 }
 #abExperimentName {
     margin-left: 20px;

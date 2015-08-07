@@ -8,6 +8,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
     $scope.opened = $cookies["toolbar:opened"] === "true";
     $scope.loggingOpened = true;
     $scope.abTestingOpened = false;
+    $scope.flashcardsLimit = 10;
     $scope.override('debug', true);
     $scope.overridden = configService.getOverridden();
     loggingService.addDebugLogListener(function(events) {
@@ -48,7 +49,6 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                     if (data.length === 0) {
                         return;
                     }
-                    console.log(data[0]);
                     $scope.abExperiment = data[0];
                     $scope.abExperiment.setups.forEach(function(setup) {
                         setup.values.forEach(function(value) {
@@ -63,6 +63,30 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                 });
         }
         $scope.drawABTesting();
+    };
+
+    $scope.showFlashcardsPractice = function() {
+        var params = {
+            limit: $scope.limit
+        };
+        if ($scope.flashcardsCategories) {
+            params.categories = JSON.stringify(
+                $scope.flashcardsCategories.split(',').map(function(x) { return x.trim(); })
+            );
+        }
+        if ($scope.flashcardsContexts) {
+            params.contexts = JSON.stringify(
+                $scope.flashcardsContexts.split(',').map(function(x) { return x.trim(); })
+            );
+        }
+        if ($scope.flashcardsTypes) {
+            params.types = JSON.stringify(
+                $scope.flashcardsTypes.split(',').map(function(x) { return x.trim(); })
+            );
+        }
+        $http.get('/flashcards/practice_image', {params: params}).success(function(response) {
+            document.getElementById("flashcardsChart").innerHTML = response;
+        });
     };
 
     $scope.drawABTesting = function(column) {
