@@ -33,7 +33,7 @@
 #config-bar-header {
     background-color: rgba(31, 141, 214, 0.8);
     margin: 0;
-    padding: 10px 20px;
+    padding: 5px 10px;
     text-align: right;
     color: white;
 }
@@ -41,7 +41,7 @@
     background-color: rgba(31, 141, 214, 0.8);
     margin: 0;
     margin-top: 5px;
-    padding: 10px 20px;
+    padding: 5px 10px;
     color: white;
     text-transform: uppercase;
     cursor: pointer;
@@ -58,7 +58,7 @@
 }
 #config-bar-content > li {
     border-bottom: 1px dashed #E9F4FB;
-    padding: 10px 20px;
+    padding: 5px 10px;
     margin: 0;
 }
 #config-bar-content > li:hover {
@@ -125,9 +125,6 @@
     margin-top: 20px;
     margin-bottom: 5px;
 }
-#config-bar-content input {
-    font-size: 14px;
-}
 #config-bar-content .property-name {
     width: 70%;
 }
@@ -138,12 +135,22 @@
 #config-bar-property-name {
     width: 70%;
 }
-#config-bar-audit {
+#config-bar-audit, #config-bar-ab {
     padding-left: 5px;
 }
-#config-bar-audit li {
+#config-bar-audit li, #config-bar-ab li {
+    padding-left: 0;
+    margin-left: 0;
     list-style: none;
     margin-bottom: 5px;
+}
+#config-bar-ab ul {
+    padding-left: 0;
+    margin-left: 0;
+}
+.ab-experiment-chart-button {
+    margin-left: 10px;
+    width: 20%;
 }
 #config-bar-audit input {
     width: 27%;
@@ -153,5 +160,16 @@
 }
 #auditChart {
     margin: 10px auto;
-    width: 450px;
+    width: 480px;
+}
+#abChart {
+    margin: 0 auto;
+    width: 480px;
+}
+#abExperimentName {
+    margin-left: 20px;
+    font-weight: bold;
+}
+#abSetupInfo > li > ul, #abSetupInfo > li > ul > li {
+    display: inline;
 }

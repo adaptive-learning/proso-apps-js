@@ -38,6 +38,30 @@
                 </li>
                 <div id="auditChart"></div>
             </ul>
+            <div class='section' ng-click="openABTesting()">AB Testing <span id="abExperimentName">{{abExperiment.identifier }}</span></div>
+            <ul id="config-bar-ab" ng-cloak ng-show="abTestingOpened">
+                <li>
+                    <ul id="abSetupInfo">
+                        <li ng-repeat="setup in abExperiment.setups">
+                            <strong class="setup-id">#{{ setup.id }}</strong>
+                            <ul>
+                                <li ng-repeat="value in setup.values">
+                                    <span class="variable-name">{{ value.variable.app_name }}.{{ value.variable.name }}</span>
+                                    <span class="variable-value">{{ value.value }}</span>
+                                    <span class="comma" ng-if="!$last">,</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                <li>
+                <div id="abChart"></div>
+                <li>
+                    <button ng-click="drawABTesting()" class="ab-experiment-chart-button">All</button>
+                    <button ng-click="drawABTesting('number_of_users')" class="ab-experiment-chart-button">Users</button>
+                    <button ng-click="drawABTesting('number_of_answers_median')" class="ab-experiment-chart-button">Answers</button>
+                    <button ng-click="drawABTesting('returning_chance')" class="ab-experiment-chart-button">Returning</button>
+                </li>
+            </ul>
             <div class='section' ng-click="loggingOpened = !loggingOpened">Logging</div>
             <ul id="config-bar-logging" ng-cloak ng-show="loggingOpened">
                 <li ng-repeat="event in debugLog|limitTo:100" class="logging-event">

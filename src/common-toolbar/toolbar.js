@@ -7,6 +7,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
     $scope.debugLog = [];
     $scope.opened = $cookies["toolbar:opened"] === "true";
     $scope.loggingOpened = true;
+    $scope.abTestingOpened = false;
     $scope.override('debug', true);
     $scope.overridden = configService.getOverridden();
     loggingService.addDebugLogListener(function(events) {
@@ -36,6 +37,77 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
             delete overridden[k];
         });
         return overridden;
+    };
+
+    $scope.openABTesting = function() {
+        $scope.abTestingOpened = ! $scope.abTestingOpened;
+        if ($scope.abTestingOpened && !$scope.abExperiment) {
+            $http.get('/configab/experiments', {params: {filter_column: 'is_enabled', filter_value: true, stats: true}})
+                .success(function(response) {
+                    var data = response.data;
+                    if (data.length === 0) {
+                        return;
+                    }
+                    console.log(data[0]);
+                    $scope.abExperiment = data[0];
+                    $scope.abExperiment.setups.forEach(function(setup) {
+                        setup.values.forEach(function(value) {
+                            $scope.abExperiment.variables.forEach(function(variable) {
+                                if (variable.id = value.variable_id) {
+                                    value.variable = variable;
+                                }
+                            });
+                        });
+                    });
+                    $scope.drawABTesting();
+                });
+        }
+        $scope.drawABTesting();
+    };
+
+    $scope.drawABTesting = function(column) {
+        if (!$scope.abExperiment) {
+            return;
+        }
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Experiment Setup');
+        data.addColumn('number', 'Number of Answers');
+        data.addColumn('number', 'Number of Users');
+        data.addColumn('number', 'Returning Chance');
+        data.addRows($scope.abExperiment.setups.map(function(setup) {
+            return [
+                'Setup #' + setup.id,
+                setup.stats.number_of_answers_median,
+                setup.stats.number_of_users,
+                setup.stats.returning_chance,
+            ];
+        }));
+        var view = data;
+        var title = 'All';
+        if (column) {
+            var columns = {
+                number_of_answers_median: 1,
+                number_of_users: 2,
+                returning_chance: 3,
+            };
+            title = column;
+            view = new google.visualization.DataView(data);
+            view.setColumns([0, columns[column]]);
+        }
+        var chart = new google.visualization.ColumnChart(document.getElementById("abChart"));
+        var options = {
+            title: title,
+            legend: {
+                position: 'none'
+            },
+            vAxis: {
+                format: '#.###'
+            },
+            width: 480,
+            height: 300,
+            'chartArea': {'width': '80%', 'height': '80%'}
+        };
+        chart.draw(view, options);
     };
 
     $scope.showAuditChart = function() {
@@ -77,7 +149,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                             pointShape: 'diamond'
                         }
                     },
-                    width: 450,
+                    width: 480,
                     height: 300,
                     'chartArea': {'width': '80%', 'height': '90%'}
                 };
