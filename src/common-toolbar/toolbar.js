@@ -173,12 +173,6 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                         title: 'Time',
                         position: 'center'
                     },
-                    pointSize: 10,
-                    series: {
-                        0: {
-                            pointShape: 'diamond'
-                        }
-                    },
                     width: 480,
                     height: 300,
                     'chartArea': {'width': '80%', 'height': '90%'}
