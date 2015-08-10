@@ -58,8 +58,29 @@
                 <li>
                     <input type="text" ng-model="flashcardsLimit" placeholder="Limit" />
                     <button ng-click="showFlashcardsPractice()">Show Practice</button>
+                    <button ng-click="showFlashcardsAnswers()">Show Answers</button>
                 </li>
                 <div style="overflow: auto; width: 100%; height: 300px;">
+                    <table ng-show="flashcardsAnswers.length > 0" id="flashcardsAnswers">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>User</th>
+                                <th>Asked</th>
+                                <th>Answered</th>
+                                <th>Response</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="answer in flashcardsAnswers">
+                                <td><a href="/flashcards/answer/{{ answer.id }}?html" title="{{answer.time | date:'yyyy-MM-dd_HH:mm:ss'}}">{{ answer.id }}</a></td>
+                                <td>{{ answer.user_id }}</td>
+                                <td>{{ answer.flashcard_asked.identifier }}</td>
+                                <td ng-class="{true: 'correct', false: 'wrong'}[answer.item_asked_id == answer.item_answered_id]">{{ answer.flashcard_answered.identifier }}</td>
+                                <td>{{ answer.response_time }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div id="flashcardsChart"></div>
                 </div>
             </ul>
@@ -76,6 +97,33 @@
                     <button ng-click="showAuditChart()">Show Chart</button>
                 </li>
                 <div id="auditChart"></div>
+            </ul>
+            <div class='section' ng-click="recommendationOpened = !recommendationOpened">Recommend User</div>
+            <ul id="config-bar-recommendation" ng-cloak ng-show="recommendationOpened">
+                <li>
+                    <input type="text" placeholder="Register Time" disabled/>
+                    <input type="text" placeholder="Min" ng-model="recommendationRegisterMin" />
+                    <input type="text" placeholder="Max" ng-model="recommendationRegisterMax" />
+                </li>
+                <li>
+                    <input type="text" placeholder="Number of Answers" disabled/>
+                    <input type="text" placeholder="Min" ng-model="recommendationAnswersMin" />
+                    <input type="text" placeholder="Max" ng-model="recommendationAnswersMax" />
+                </li>
+                <li>
+                    <input type="text" placeholder="Success" disabled/>
+                    <input type="text" placeholder="Min" ng-model="recommendationSuccessMin" />
+                    <input type="text" placeholder="Max" ng-model="recommendationSuccessMax" />
+                </li>
+                <li>
+                    <input type="text" placeholder="Variable Name" ng-model="recommendationVariableName" />
+                    <input type="text" placeholder="Min" ng-model="recommendationVariableMin" />
+                    <input type="text" placeholder="Max" ng-model="recommendationVariableMax" />
+                </li>
+                <li>
+                    <input type="text" ng-model="recommendationOutput" disabled />
+                    <button ng-click="recommendUser()">Recommend</button>
+                </li>
             </ul>
             <div class='section' ng-click="loggingOpened = !loggingOpened">Logging</div>
             <ul id="config-bar-logging" ng-cloak ng-show="loggingOpened">

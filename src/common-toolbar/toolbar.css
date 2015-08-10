@@ -135,10 +135,10 @@
 #config-bar-property-name {
     width: 70%;
 }
-#config-bar-audit, #config-bar-ab, #config-bar-flashcards {
+#config-bar-audit, #config-bar-ab, #config-bar-flashcards, #config-bar-recommendation {
     padding-left: 5px;
 }
-#config-bar-audit li, #config-bar-ab li, #config-bar-flashcards li {
+#config-bar-audit li, #config-bar-ab li, #config-bar-flashcards li, #config-bar-recommendation li {
     padding-left: 0;
     margin-left: 0;
     list-style: none;
@@ -152,10 +152,10 @@
     margin-left: 10px;
     width: 20%;
 }
-#config-bar-audit input, #config-bar-flashcards input {
+#config-bar-audit input, #config-bar-flashcards input, #config-bar-recommendation input {
     width: 27%;
 }
-#config-bar-audit button, #config-bar-flashcards button {
+#config-bar-audit button, #config-bar-flashcards button, #config-bar-recommendation button {
     width: 27%;
 }
 #auditChart {
@@ -177,4 +177,28 @@
 }
 #abSetupInfo > li > ul, #abSetupInfo > li > ul > li {
     display: inline;
+}
+#flashcardsAnswers {
+    width: 100%;
+}
+#flashcardsAnswers thead {
+    color: #fff;
+    background-color: rgba(31, 141, 214, 0.8);
+}
+#flashcardsAnswers th, #flashcardsAnswers td {
+    text-align: center;
+}
+#flashcardsAnswers tbody tr:nth-child(even) {
+    background-color: #E9F4FB;
+}
+#flashcardsAnswers tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+#flashcardsAnswers td.correct {
+    background-color: #009933;
+    color: white;
+}
+#flashcardsAnswers td.wrong {
+    background-color: #cc0000;
+    color: white;
 }

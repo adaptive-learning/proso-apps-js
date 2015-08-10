@@ -66,6 +66,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
     };
 
     $scope.showFlashcardsPractice = function() {
+        $scope.flashcardsAnswers = [];
         var params = {
             limit: $scope.flashcardsLimit
         };
@@ -86,6 +87,13 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         }
         $http.get('/flashcards/practice_image', {params: params}).success(function(response) {
             document.getElementById("flashcardsChart").innerHTML = response;
+        });
+    };
+
+    $scope.showFlashcardsAnswers = function() {
+        document.getElementById("flashcardsChart").innerHTML = '';
+        $http.get('/flashcards/answers').success(function(response) {
+            $scope.flashcardsAnswers = response.data;
         });
     };
 
@@ -183,6 +191,44 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                 formatter.format(data, 1);
                 var chart = new google.visualization.LineChart(document.getElementById('auditChart'));
                 chart.draw(data, options);
+            });
+    };
+
+    $scope.recommendUser = function() {
+        var filter = {};
+        if ($scope.recommendationRegisterMin) {
+            filter.register_min = $scope.recommendationRegisterMin;
+        }
+        if ($scope.recommendationRegisterMax) {
+            filter.register_max = $scope.recommendationRegisterMax;
+        }
+        if ($scope.recommendationAnswersMin) {
+            filter.number_of_answers_min = $scope.recommendationAnswersMin;
+        }
+        if ($scope.recommendationAnswersMax) {
+            filter.number_of_answers_max = $scope.recommendationAnswersMax;
+        }
+        if ($scope.recommendationSuccessMin) {
+            filter.success_min = $scope.recommendationSuccessMin;
+        }
+        if ($scope.recommendationSuccessMax) {
+            filter.success_max = $scope.recommendationSuccessMax;
+        }
+        if ($scope.recommendationVariableName) {
+            filter.variable_name = $scope.recommendationVariableName;
+        }
+        if ($scope.recommendationVariableMin) {
+            filter.variable_min = $scope.recommendationVariableMin;
+        }
+        if ($scope.recommendationVariableMax) {
+            filter.variable_max = $scope.recommendationVariableMax;
+        }
+        $scope.recommendationOutput = '';
+        $http.get('/models/recommend_users', {params: filter})
+            .success(function (response) {
+                if (response.data.length > 0) {
+                    $scope.recommendationOutput = response.data[0];
+                }
             });
     };
 
