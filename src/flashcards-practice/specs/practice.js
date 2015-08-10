@@ -396,12 +396,12 @@ describe("Practice Service - answers", function() {
         $practiceService.saveAnswer(3);
         expect($practiceService.getAnswerQueue()).toEqual([1,2,3]);
 
-        $httpBackend.expectPOST("/flashcards/answer/", {answers: [1,2,3]}).respond(200, "OK");
+        $httpBackend.expectPOST("/flashcards/answer/?categories=%5B%5D&contexts=%5B%5D&types=%5B%5D", {answers: [1,2,3]}).respond(200, "OK");
         $practiceService.flushAnswerQueue();
         $httpBackend.flush();
         expect($practiceService.getAnswerQueue()).toEqual([]);
 
-        $httpBackend.expectPOST("/flashcards/answer/", {answers: [1]}).respond(200, "OK");
+        $httpBackend.expectPOST("/flashcards/answer/?categories=%5B%5D&contexts=%5B%5D&types=%5B%5D", {answers: [1]}).respond(200, "OK");
         $practiceService.saveAnswer(1, true);
         $httpBackend.flush();
         expect($practiceService.getAnswerQueue()).toEqual([]);
@@ -411,7 +411,7 @@ describe("Practice Service - answers", function() {
     it("save answer immediately", function() {
         config.proso_flashcards.practice.test.save_answer_immediately = true;
         $practiceService.initSet("test");
-        $httpBackend.expectPOST("/flashcards/answer/", {answers: [1]}).respond(200, "OK");
+        $httpBackend.expectPOST("/flashcards/answer/?categories=%5B%5D&contexts=%5B%5D&types=%5B%5D", {answers: [1]}).respond(200, "OK");
         $practiceService.saveAnswer(1);
         $httpBackend.flush();
         expect($practiceService.getAnswerQueue()).toEqual([]);
@@ -444,7 +444,7 @@ describe("Practice Service - answers", function() {
             $timeout.flush();
             $practiceService.saveAnswer(i);
         }
-        $httpBackend.expectPOST("/flashcards/answer/", {answers: [1, 2, 3, 4, 5]}).respond(200, "OK");
+        $httpBackend.expectPOST("/flashcards/answer/?categories=%5B%5D&contexts=%5B%5D&types=%5B%5D", {answers: [1, 2, 3, 4, 5]}).respond(200, "OK");
         $practiceService.getFlashcard();
         $practiceService.saveAnswer(i);
         $httpBackend.flush();
@@ -459,12 +459,12 @@ describe("Practice Service - answers", function() {
         $practiceService.getFlashcard();
         $httpBackend.flush();
 
-        $httpBackend.expectPOST("/flashcards/answer/", {"answers":[{"flashcard_id":0,"flashcard_answered_id":42,"response_time":42000,"direction":"xxxs","meta":{"client_meta":"moje meta"}, time_gap:0}]}).respond(200, "OK");
+        $httpBackend.expectPOST("/flashcards/answer/?categories=%5B%5D&contexts=%5B%5D&types=%5B%5D", {"answers":[{"flashcard_id":0,"flashcard_answered_id":42,"response_time":42000,"direction":"xxxs","meta":{"client_meta":"moje meta"}, time_gap:0}]}).respond(200, "OK");
         $practiceService.saveAnswerToCurrentFC(42, 42000, "moje meta");
         $httpBackend.flush();
 
         $practiceService.getFlashcard();
-        $httpBackend.expectPOST("/flashcards/answer/", {"answers":[{"flashcard_id":1,"flashcard_answered_id":null,"response_time":12,"direction":"xxxs","meta":{"client_meta":"moje meta"}, time_gap:0}]}).respond(200, "OK");
+        $httpBackend.expectPOST("/flashcards/answer/?categories=%5B%5D&contexts=%5B%5D&types=%5B%5D", {"answers":[{"flashcard_id":1,"flashcard_answered_id":null,"response_time":12,"direction":"xxxs","meta":{"client_meta":"moje meta"}, time_gap:0}]}).respond(200, "OK");
         $practiceService.saveAnswerToCurrentFC(null, 12, "moje meta");
         $httpBackend.flush();
 
@@ -572,7 +572,7 @@ describe("Practice Service - answers", function() {
         x.and.callFake(function() { return d; });
         $practiceService.saveAnswerToCurrentFC(null, 12, "moje meta");
 
-        $httpBackend.expectPOST("/flashcards/answer/", {"answers":[
+        $httpBackend.expectPOST("/flashcards/answer/?categories=%5B%5D&contexts=%5B%5D&types=%5B%5D", {"answers":[
             {"flashcard_id":0,"flashcard_answered_id":42,"response_time":42000,"direction":"xxxs","meta":{"client_meta":"moje meta"}, time_gap:3},
             {"flashcard_id":1,"flashcard_answered_id":null,"response_time":12,"direction":"xxxs","meta":{"client_meta":"moje meta"}, time_gap:0}
         ]}).respond(200, "OK");

@@ -74,7 +74,7 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
                     delete answer.time;
                 });
                 $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-                $http.post("/flashcards/answer/", {answers: answerQueue})
+                $http.post("/flashcards/answer/", {answers: answerQueue}, {params: _getFilter(['avoid', 'limit'])})
                     .error(function (response) {
                         console.error("Problem while uploading answer", response);
                     });
@@ -176,18 +176,7 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
             config.filter.avoid.push(fc.id);
         });
 
-        var filter = {};
-        for (var key in config.filter){
-            if (config.filter[key] instanceof Array) {
-                filter[key] = JSON.stringify(config.filter[key]);
-            }else{
-                filter[key] = config.filter[key];
-            }
-        }
-        if (config.cache_context){
-            filter.without_contexts = 1;
-        }
-
+        var filter = _getFilter();
         var request;
         if (answerQueue.length === 0) {
             request = $http.get("/flashcards/practice/", {params: filter});
@@ -265,5 +254,26 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
             deferredFC.resolve(currentFC);
         }
         _loadFlashcards();
+    };
+
+    var _getFilter = function(ignore) {
+        if (!ignore) {
+            ignore = [];
+        }
+        var filter = {};
+        for (var key in config.filter){
+            if (ignore.indexOf(key) !== -1) {
+                continue;
+            }
+            if (config.filter[key] instanceof Array) {
+                filter[key] = JSON.stringify(config.filter[key]);
+            }else{
+                filter[key] = config.filter[key];
+            }
+        }
+        if (config.cache_context){
+            filter.without_contexts = 1;
+        }
+        return filter;
     };
 }]);
