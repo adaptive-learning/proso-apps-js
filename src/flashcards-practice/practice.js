@@ -56,7 +56,7 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
     };
 
     // add answer to queue and upload queued answers if necessary
-    self.saveAnswer = function(answer, farceSave){
+    self.saveAnswer = function(answer, forceSave){
         if (answer) {
             answer.time = Date.now();
             answerQueue.push(answer);
@@ -67,7 +67,7 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
             }
         }
 
-        if (config.save_answer_immediately || farceSave || current >= config.set_length) {
+        if (config.save_answer_immediately || forceSave || current >= config.set_length) {
             if (answerQueue.length > 0) {
                 answerQueue.forEach(function(answer){
                     answer.time_gap = Math.round((Date.now() - answer.time) / 1000);
