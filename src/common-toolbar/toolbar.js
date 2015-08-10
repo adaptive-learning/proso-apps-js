@@ -92,7 +92,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
 
     $scope.showFlashcardsAnswers = function() {
         document.getElementById("flashcardsChart").innerHTML = '';
-        $http.get('/flashcards/answers').success(function(response) {
+        $http.get('/flashcards/answers', {params: {limit: $scope.flashcardsLimit}}).success(function(response) {
             $scope.flashcardsAnswers = response.data;
         });
     };
