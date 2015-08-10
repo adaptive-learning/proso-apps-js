@@ -223,11 +223,13 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         if ($scope.recommendationVariableMax) {
             filter.variable_max = $scope.recommendationVariableMax;
         }
-        $scope.recommendationOutput = '';
+        $scope.recommendationOutput = 'Loading...';
         $http.get('/models/recommend_users', {params: filter})
             .success(function (response) {
                 if (response.data.length > 0) {
                     $scope.recommendationOutput = response.data[0];
+                } else {
+                    $scope.recommendationOutput = 'Not Found';
                 }
             });
     };
