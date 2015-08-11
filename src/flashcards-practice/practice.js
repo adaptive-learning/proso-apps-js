@@ -26,6 +26,7 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
 
         self.setFilter({});
         current = 0;
+        currentFC = null;
         self.flushAnswerQueue();
         self.clearQueue();
         deferredFC = null;
