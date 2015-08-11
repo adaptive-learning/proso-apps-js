@@ -1,8 +1,9 @@
 <div id="proso-toolbar">
     <div id="config-bar-show-button" ng-click="opened = !opened" ng-hide="opened"> proso bar </div>
 
-    <div id="config-bar" ng-cloak ng-show="opened">
+    <div id="config-bar" ng-cloak ng-show="opened" ng-class="{'maximized' : maximized}">
         <div id="config-bar-header">
+            <span id="config-bar-maximize" ng-click="maximized = !maximized">Maximize</span>
             <span id="config-bar-hide" ng-click="opened = !opened">Close</span>
         </div>
         <ul id="config-bar-content">

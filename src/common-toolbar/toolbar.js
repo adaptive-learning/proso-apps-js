@@ -6,6 +6,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
     $scope.date = new Date();
     $scope.debugLog = [];
     $scope.opened = $cookies["toolbar:opened"] === "true";
+    $scope.maximized = $cookies["toolbar:maximized"] === "true";
     $scope.loggingOpened = true;
     $scope.abTestingOpened = false;
     $scope.flashcardsLimit = 10;
@@ -21,6 +22,10 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
 
     $scope.$watch("opened", function(n, o){
         $cookies["toolbar:opened"] = n;
+    });
+
+    $scope.$watch("maximized", function(n, o){
+        $cookies["toolbar:maximized"] = n;
     });
 
     $scope.addToOverride = function(name) {
