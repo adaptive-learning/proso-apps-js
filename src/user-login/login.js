@@ -56,7 +56,9 @@ m.controller('LoginController', ['$scope', '$modalInstance', 'signupModal', 'use
             $scope.credentials.password_check,
             $scope.credentials.first_name,
             $scope.credentials.last_name
-        );
+        ).success(function() {
+            $modalInstance.close();
+        });
     };
 
     $scope.onError = function(error) {

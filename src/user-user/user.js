@@ -17,8 +17,8 @@ m.service("userService", ["$http", function($http){
     self.signup = function(data){
         self.status.loading = true;
         _resetError();
-        return $http.post("/user/signup/", data)
-            .success(function(response){
+        var promise = $http.post("/user/signup/", data);
+        promise.success(function(response){
                 _processUser(response.data);
             })
             .error(function(response){
@@ -27,6 +27,7 @@ m.service("userService", ["$http", function($http){
             .finally(function(response){
                 self.status.loading = false;
             });
+        return promise;
     };
 
     self.signupParams = function(name, email, pass, pass2, firstName, lastName){
