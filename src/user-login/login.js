@@ -49,16 +49,19 @@ m.controller('LoginController', ['$scope', '$modalInstance', 'signupModal', 'use
             category: 'signup',
             label: '/signup/email',
         });
-        userService.signupParams(
-            $scope.credentials.username,
-            $scope.credentials.email,
-            $scope.credentials.password,
-            $scope.credentials.password_check,
-            $scope.credentials.first_name,
-            $scope.credentials.last_name
-        ).success(function() {
-            $modalInstance.close();
-        });
+        userService
+            .signupParams(
+                $scope.credentials.username,
+                $scope.credentials.email,
+                $scope.credentials.password,
+                $scope.credentials.password_check,
+                $scope.credentials.first_name,
+                $scope.credentials.last_name
+            )
+            .error($scope.onError)
+            .success(function() {
+                $modalInstance.close();
+            });
     };
 
     $scope.onError = function(error) {
