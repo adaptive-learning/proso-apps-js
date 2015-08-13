@@ -71,7 +71,7 @@ m.controller('LoginController', ['$scope', '$modalInstance', 'signupModal', 'use
         });
         $scope.alerts.push({
             type: error.type || 'danger',
-            msg: error.msg || gettextCatalog.getString('Something wrong has happened.')
+            msg: error.error || gettextCatalog.getString('Something wrong has happened.')
         });
     };
 
