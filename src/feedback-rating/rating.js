@@ -31,7 +31,7 @@ m.controller('RatingModalInstanceController', ['$scope', '$modalInstance', '$htt
     $scope.vote = function(answer) {
         $scope.answer = answer;
         $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-        $http.post('/feedback/rating', {'value': answer}).success(function(data){
+        $http.post('/feedback/rating/', {'value': answer}).success(function(data){
             $scope.alerts.push({
                 type : 'success',
                 msg : gettextCatalog.getString('Thank you for your rating.'),
