@@ -76,7 +76,7 @@ m.service("userService", ["$http", function($http){
             self.status.logged = false;
             return;
         }
-        self.status.logged = true;
+        self.status.logged = data.user && data.user.email !== undefined;
         self.user.profile = data;
         angular.extend(self.user, data.user);
         angular.extend(update, {
