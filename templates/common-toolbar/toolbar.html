@@ -15,7 +15,7 @@
                 <span ng-click="removeOverridden('user'); overridden.user = null;" class="reset">X</span>
                 <input type="number" ng-model="overridden.user" placeholder="User" ng-change="override('user', overridden.user)" />
             </li>
-            <li>
+            <li style="display: none">
                 <span ng-click="removeOverridden('time'); overridden.time= null;" class="reset">X</span>
                 <input type="text" ng-model="overridden.time" placeholder="Time" ng-change="override('time', overridden.time)" />
                 <i>{{date | date:'yyyy-MM-dd_HH:mm:ss'}}</i>
