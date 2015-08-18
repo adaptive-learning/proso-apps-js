@@ -34,9 +34,9 @@
                             <ul>
                                 <li ng-repeat="value in setup.values">
                                     <span class="variable-name" title="{{ value.variable.app_name }}.{{ value.variable.name }} ">
-                                        {{ value.variable.name | limitTo: 12 }}{{ value.variable.name.length > 12 ? '...' : '' }}
+                                        {{ value.variable.name.split('.').slice(-1)[0] | limitTo: 12 }}{{ value.variable.name.split('.').slice(-1)[0].length > 12 ? '...' : '' }}
                                     </span>
-                                    <span class="variable-value" title="{{ value.value }}">{{ value.value | limitTo: 12 }} {{ value.value.length > 12 ? '...' : '' }}</span>
+                                    <span class="variable-value" title="{{ value.value }}">{{ value.value.split('.').slice(-1)[0] | limitTo: 12 }} {{ value.value.split('.').slice(-1)[0].length > 12 ? '...' : '' }}</span>
                                     <span class="comma" ng-if="!$last">,</a>
                                 </li>
                             </ul>
@@ -47,7 +47,7 @@
                 <li>
                     <button ng-click="drawABTestingBar()" class="ab-experiment-chart-button">All</button>
                     <button ng-click="drawABTestingBar('number_of_users')" class="ab-experiment-chart-button">Users</button>
-                    <button ng-click="drawABTestingBar('number_of_answers_median')" class="ab-experiment-chart-button">Answers</button>
+                    <button ng-click="drawABTestingBar('number_of_answers')" class="ab-experiment-chart-button">Answers</button>
                     <button ng-click="drawABTestingBar('returning_chance')" class="ab-experiment-chart-button">Return</button>
                     <button ng-click="drawABTestingLearning()" class="ab-experiment-chart-button">Learn</button>
                 </li>

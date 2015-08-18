@@ -109,27 +109,35 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Experiment Setup');
         data.addColumn('number', 'Number of Answers');
+        data.addColumn({type: 'number', role: 'interval'});
+        data.addColumn({type: 'number', role: 'interval'});
         data.addColumn('number', 'Number of Users');
         data.addColumn('number', 'Returning Chance');
+        data.addColumn({type: 'number', role: 'interval'});
+        data.addColumn({type: 'number', role: 'interval'});
         data.addRows($scope.abExperiment.setups.map(function(setup) {
             return [
                 'Setup #' + setup.id,
-                setup.stats.number_of_answers_median,
+                setup.stats.number_of_answers.value,
+                setup.stats.number_of_answers.confidence_interval.min,
+                setup.stats.number_of_answers.confidence_interval.max,
                 setup.stats.number_of_users,
-                setup.stats.returning_chance,
+                setup.stats.returning_chance.value,
+                setup.stats.returning_chance.confidence_interval.min,
+                setup.stats.returning_chance.confidence_interval.max,
             ];
         }));
         var view = data;
         var title = 'All';
         if (column) {
             var columns = {
-                number_of_answers_median: 1,
-                number_of_users: 2,
-                returning_chance: 3,
+                number_of_answers: [0, 1, 2, 3],
+                number_of_users: [0, 4],
+                returning_chance: [0, 5, 6, 7],
             };
             title = column;
             view = new google.visualization.DataView(data);
-            view.setColumns([0, columns[column]]);
+            view.setColumns(columns[column]);
         }
         var chart = new google.visualization.ColumnChart(document.getElementById("abChart"));
         var options = {
@@ -142,7 +150,13 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
             },
             width: 480,
             height: 300,
-            'chartArea': {'width': '80%', 'height': '80%'}
+            intervals: {
+                styel: 'bars',
+                pointSize: 10,
+                barWidth: 0,
+                lineWidth: 4,
+            },
+            chartArea: {'width': '80%', 'height': '80%'}
         };
         chart.draw(view, options);
     };
@@ -165,7 +179,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
             var row = [i];
             /*jshint -W083 */
             $scope.abExperiment.setups.forEach(function(setup) {
-                row.push(setup.stats.learning_curve.success[i].mean);
+                row.push(setup.stats.learning_curve.success[i].value);
                 row.push(setup.stats.learning_curve.success[i].confidence_interval.min);
                 row.push(setup.stats.learning_curve.success[i].confidence_interval.max);
             });
