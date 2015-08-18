@@ -230,7 +230,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                     },
                     width: 480,
                     height: 300,
-                    'chartArea': {'width': '80%', 'height': '90%'}
+                    'chartArea': {'width': '80%', 'height': '80%'}
                 };
                 var formatter = new google.visualization.NumberFormat({
                     fractionDigits: 3, pattern: '#.###'
