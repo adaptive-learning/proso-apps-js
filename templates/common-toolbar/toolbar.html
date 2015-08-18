@@ -33,8 +33,10 @@
                             <strong class="setup-id">#{{ setup.id }}</strong>
                             <ul>
                                 <li ng-repeat="value in setup.values">
-                                    <span class="variable-name">{{ value.variable.app_name }}.{{ value.variable.name }}</span>
-                                    <span class="variable-value">{{ value.value }}</span>
+                                    <span class="variable-name" title="{{ value.variable.app_name }}.{{ value.variable.name }} ">
+                                        {{ value.variable.name | limitTo: 12 }}{{ value.variable.name.length > 12 ? '...' : '' }}
+                                    </span>
+                                    <span class="variable-value" title="{{ value.value }}">{{ value.value | limitTo: 12 }} {{ value.value.length > 12 ? '...' : '' }}</span>
                                     <span class="comma" ng-if="!$last">,</a>
                                 </li>
                             </ul>
