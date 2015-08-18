@@ -156,6 +156,8 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         var length = 0;
         $scope.abExperiment.setups.forEach(function(setup) {
             data.addColumn('number', 'Setup #' + setup.id);
+            data.addColumn({type: 'number', role: 'interval'});
+            data.addColumn({type: 'number', role: 'interval'});
             length = Math.max(setup.stats.learning_curve.success.length);
         });
         var rows = [];
@@ -163,7 +165,9 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
             var row = [i];
             /*jshint -W083 */
             $scope.abExperiment.setups.forEach(function(setup) {
-                row.push(setup.stats.learning_curve.success[i]);
+                row.push(setup.stats.learning_curve.success[i].mean);
+                row.push(setup.stats.learning_curve.success[i].confidence_interval.min);
+                row.push(setup.stats.learning_curve.success[i].confidence_interval.max);
             });
             rows.push(row);
         }
