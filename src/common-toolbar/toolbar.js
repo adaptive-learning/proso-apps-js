@@ -48,7 +48,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
     $scope.openABTesting = function() {
         $scope.abTestingOpened = ! $scope.abTestingOpened;
         if ($scope.abTestingOpened && !$scope.abExperiment) {
-            $http.get('/configab/experiments', {params: {filter_column: 'is_enabled', filter_value: true, stats: true}})
+            $http.get('/configab/experiments', {params: {filter_column: 'is_enabled', filter_value: true, stats: true, learning_curve_length: 5}})
                 .success(function(response) {
                     var data = response.data;
                     if (data.length === 0) {
@@ -64,10 +64,10 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                             });
                         });
                     });
-                    $scope.drawABTesting();
+                    $scope.drawABTestingBar();
                 });
         }
-        $scope.drawABTesting();
+        $scope.drawABTestingBar();
     };
 
     $scope.showFlashcardsPractice = function() {
@@ -102,7 +102,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         });
     };
 
-    $scope.drawABTesting = function(column) {
+    $scope.drawABTestingBar = function(column) {
         if (!$scope.abExperiment) {
             return;
         }
@@ -145,6 +145,48 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
             'chartArea': {'width': '80%', 'height': '80%'}
         };
         chart.draw(view, options);
+    };
+
+    $scope.drawABTestingLearning = function() {
+        if (!$scope.abExperiment) {
+            return;
+        }
+        var data = new google.visualization.DataTable();
+        data.addColumn({type: 'number', role: 'domain'});
+        var length = 0;
+        $scope.abExperiment.setups.forEach(function(setup) {
+            data.addColumn('number', 'Setup #' + setup.id);
+            length = Math.max(setup.stats.learning_curve.success.length);
+        });
+        var rows = [];
+        for (var i = 0; i < length; i++) {
+            var row = [i];
+            /*jshint -W083 */
+            $scope.abExperiment.setups.forEach(function(setup) {
+                row.push(setup.stats.learning_curve.success[i]);
+            });
+            rows.push(row);
+        }
+        console.log(rows);
+        data.addRows(rows);
+        var chart = new google.visualization.LineChart(document.getElementById("abChart"));
+        var options = {
+            title: 'Learning',
+            legend: {
+                position: 'none'
+            },
+            vAxis: {
+                format: '#.###'
+            },
+            hAxis: {
+                title: 'Attempt',
+                position: 'center'
+            },
+            width: 480,
+            height: 300,
+            'chartArea': {'width': '80%', 'height': '80%'}
+        };
+        chart.draw(data, options);
     };
 
     $scope.showAuditChart = function() {

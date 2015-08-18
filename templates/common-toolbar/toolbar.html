@@ -43,10 +43,11 @@
                 <li>
                 <div id="abChart"></div>
                 <li>
-                    <button ng-click="drawABTesting()" class="ab-experiment-chart-button">All</button>
-                    <button ng-click="drawABTesting('number_of_users')" class="ab-experiment-chart-button">Users</button>
-                    <button ng-click="drawABTesting('number_of_answers_median')" class="ab-experiment-chart-button">Answers</button>
-                    <button ng-click="drawABTesting('returning_chance')" class="ab-experiment-chart-button">Returning</button>
+                    <button ng-click="drawABTestingBar()" class="ab-experiment-chart-button">All</button>
+                    <button ng-click="drawABTestingBar('number_of_users')" class="ab-experiment-chart-button">Users</button>
+                    <button ng-click="drawABTestingBar('number_of_answers_median')" class="ab-experiment-chart-button">Answers</button>
+                    <button ng-click="drawABTestingBar('returning_chance')" class="ab-experiment-chart-button">Return</button>
+                    <button ng-click="drawABTestingLearning()" class="ab-experiment-chart-button">Learn</button>
                 </li>
             </ul>
             <div class='section' ng-click="flashcardsOpened = !flashcardsOpened">Flashcards</div>
