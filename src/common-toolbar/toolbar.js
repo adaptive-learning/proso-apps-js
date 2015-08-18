@@ -200,7 +200,13 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                 title: 'Attempt',
                 position: 'center'
             },
-            intervals: {'style':'area'},
+            intervals: {
+                style: 'area',
+                fillOpacity: 0.2
+            },
+            lineWidth: 4,
+            pointSize: 10,
+            curveType: 'function',
             width: 480,
             height: 300,
             'chartArea': {'width': '80%', 'height': '80%'}
