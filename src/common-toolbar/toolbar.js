@@ -161,9 +161,13 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         chart.draw(view, options);
     };
 
-    $scope.drawABTestingLearning = function() {
+    $scope.drawABTestingLearning = function(all_users) {
         if (!$scope.abExperiment) {
             return;
+        }
+        var learning_curve_accessor = 'learning_curve';
+        if (all_users) {
+            learning_curve_accessor = 'learning_curve_all_users';
         }
         var data = new google.visualization.DataTable();
         data.addColumn({type: 'number', role: 'domain'});
@@ -172,20 +176,19 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
             data.addColumn('number', 'Setup #' + setup.id);
             data.addColumn({type: 'number', role: 'interval'});
             data.addColumn({type: 'number', role: 'interval'});
-            length = Math.max(setup.stats.learning_curve.success.length);
+            length = Math.max(setup.stats[learning_curve_accessor].success.length);
         });
         var rows = [];
         for (var i = 0; i < length; i++) {
             var row = [i];
             /*jshint -W083 */
             $scope.abExperiment.setups.forEach(function(setup) {
-                row.push(setup.stats.learning_curve.success[i].value);
-                row.push(setup.stats.learning_curve.success[i].confidence_interval.min);
-                row.push(setup.stats.learning_curve.success[i].confidence_interval.max);
+                row.push(setup.stats[learning_curve_accessor].success[i].value);
+                row.push(setup.stats[learning_curve_accessor].success[i].confidence_interval.min);
+                row.push(setup.stats[learning_curve_accessor].success[i].confidence_interval.max);
             });
             rows.push(row);
         }
-        console.log(rows);
         data.addRows(rows);
         var chart = new google.visualization.LineChart(document.getElementById("abChart"));
         var options = {
