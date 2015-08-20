@@ -13,6 +13,9 @@ m.directive('feedbackComment', ['$modal', '$window', 'gettextCatalog', function 
                 if (attrs.email) {
                     $scope.feedback.email = attrs.email;
                 }
+                if (attrs.text) {
+                    $scope.feedback.text = attrs.text;
+                }
 
                 $modal.open({
                     templateUrl: 'templates/feedback-comment/comment.html',
