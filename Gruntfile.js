@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         modules: [],
         pkg: grunt.file.readJSON('package.json'),
         dist: 'dist',
-        bowerBranch: '1.1.X',
+        bowerBranch: '1.2.X',
         filename: 'proso-apps',
         meta: {
             servicemodules: 'angular.module("proso.apps", ["proso.apps.tpls", <%= srcServiceModules %>, "proso.apps.common-toolbar"])',
