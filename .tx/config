@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[proso-apps-js.proso-appspot]
+file_filter = po/<lang>.po
+source_file = dist/proso-apps.pot
+source_lang = en
+type = PO
+
