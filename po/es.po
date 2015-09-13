@@ -1,9 +1,16 @@
+# 
+# Translators:
+# Vít Stanislav <slaweet@seznam.cz>, 2015
 msgid ""
 msgstr ""
-"Language: es\n"
+"Project-Id-Version: proso-apps-js\n"
+"PO-Revision-Date: 2015-09-12 18:23+0000\n"
+"Last-Translator: Vít Stanislav <slaweet@seznam.cz>\n"
+"Language-Team: Spanish (http://www.transifex.com/adaptive-learning/proso-apps-js/language/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/feedback-rating/rating.html:11
 msgid "Appropriate"
@@ -15,11 +22,10 @@ msgid "Close"
 msgstr "Cerrar"
 
 #: templates/feedback-comment/comment.html:6
-msgid "Did you find a bug in the app? Do you have an improvement idea? Or any other comment? We are eager to hear anything you'd like to tell us."
-msgstr ""
-"¿Encontraste algún error en el programa? ¿Tienes alguna sugerencia sobre "
-"como podemos mejorar? ¿Quieres compartir tu opinión con nosotros? Nos "
-"gustaría escuchar lo que tengas que decir."
+msgid ""
+"Did you find a bug in the app? Do you have an improvement idea? Or any other"
+" comment? We are eager to hear anything you'd like to tell us."
+msgstr "¿Encontraste algún error en el programa? ¿Tienes alguna sugerencia sobre como podemos mejorar? ¿Quieres compartir tu opinión con nosotros? Nos gustaría escuchar lo que tengas que decir."
 
 #: templates/feedback-rating/rating.html:18
 msgid "Don't know / Don't want to rate"
@@ -61,13 +67,12 @@ msgstr "Iniciar sesión"
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: src/feedback-comment/comment.js:48
-#: src/feedback-rating/rating.js:43
-#: src/user-login/login.js:69
+#: src/feedback-comment/comment.js:51 src/feedback-rating/rating.js:43
+#: src/user-login/login.js:74
 msgid "Something wrong has happened."
 msgstr "Algo malo ha ocurrido."
 
-#: src/feedback-comment/comment.js:41
+#: src/feedback-comment/comment.js:44
 msgid "Thank you for the message. User feedback is very important for us."
 msgstr "Gracias por tu mensaje. Tu opinión es muy importante para nosotros."
 
@@ -91,6 +96,10 @@ msgstr "Nombre de usuario"
 #: templates/feedback-comment/comment.html:2
 msgid "Write to us"
 msgstr "Sugerencias"
+
+#: templates/feedback-rating/rating.html:3
+msgid "Your answer helps us adjust difficulty of questions."
+msgstr "Tu respuesta ayuda a ajustar la dificultad de las preguntas."
 
 #: templates/feedback-comment/comment.html:10
 msgid "Your e-mail address (optional)"
