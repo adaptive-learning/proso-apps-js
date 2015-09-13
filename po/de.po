@@ -4,121 +4,121 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: proso-apps-js\n"
-"PO-Revision-Date: 2015-09-12 17:59+0000\n"
+"PO-Revision-Date: 2015-09-12 18:21+0000\n"
 "Last-Translator: Vít Stanislav <slaweet@seznam.cz>\n"
-"Language-Team: Czech (http://www.transifex.com/adaptive-learning/proso-apps-js/language/cs/)\n"
+"Language-Team: German (http://www.transifex.com/adaptive-learning/proso-apps-js/language/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/feedback-rating/rating.html:11
 msgid "Appropriate"
-msgstr "Tak akorát"
+msgstr "genau richtig"
 
 #: templates/feedback-comment/comment.html:21
 #: templates/feedback-rating/rating.html:26
 msgid "Close"
-msgstr "Zavřít"
+msgstr "Schließen"
 
 #: templates/feedback-comment/comment.html:6
 msgid ""
 "Did you find a bug in the app? Do you have an improvement idea? Or any other"
 " comment? We are eager to hear anything you'd like to tell us."
-msgstr "Narazili jste na chybu v aplikaci? Máte nápad na vylepšení? Nebo jakýkoliv jiný postřeh či komentář? Zajímá nás všechno, co nám chcete sdělit."
+msgstr "Haben Sie einen Fehler in der App gefunden? Haben Sie eine Idee, wie man diese App besser machen könnte? Oder einen anderen Tipp oder Kommentar? Wir interessieren uns für alles, was Sie uns mitteilen wollen."
 
 #: templates/feedback-rating/rating.html:18
 msgid "Don't know / Don't want to rate"
-msgstr "Nevím / Nechci hodnotit"
+msgstr "ich weiß nicht/ ich will nicht antworten"
 
 #: templates/user-login/signup-modal.html:34
 msgid "E-mail"
-msgstr "E-mail"
+msgstr "E-Mail"
 
 #: templates/feedback-rating/rating.html:2
 msgid "How difficult are the questions?"
-msgstr "Jak těžké se vám zdají otázky?"
+msgstr "Wie schwierig sind die gestellten Fragen?"
 
 #: templates/user-login/login-modal.html:31
 #: templates/user-login/signup-modal.html:42
 msgid "Password"
-msgstr "Heslo"
+msgstr "Passwort"
 
 #: templates/user-login/signup-modal.html:47
 msgid "Password again"
-msgstr "Heslo znovu"
+msgstr "Passwort wiederholen"
 
 #: templates/user-login/signup-modal.html:58
 msgid "Registration was successful. You can continue to use the application."
-msgstr "Registrace proběhla úspěšně. Můžete pokračovat v používání aplikace."
+msgstr "Die Registrierung wurde erfolgreich durgeführt. Sie können fortfahren, um die App zu nutzen."
 
 #: templates/feedback-comment/comment.html:18
 msgid "Send"
-msgstr "Odeslat"
+msgstr "Senden"
 
 #: templates/user-login/login-modal.html:37
 #: templates/user-login/login-modal.html:5
 msgid "Sign In"
-msgstr "Přihlásit se"
+msgstr "Anmelden"
 
 #: templates/user-login/login-modal.html:44
 #: templates/user-login/signup-modal.html:5
 #: templates/user-login/signup-modal.html:52
 msgid "Sign Up"
-msgstr "Zaregistrovat se"
+msgstr "Registrieren"
 
 #: src/feedback-comment/comment.js:51 src/feedback-rating/rating.js:43
 #: src/user-login/login.js:74
 msgid "Something wrong has happened."
-msgstr "V aplikaci nastala chyba."
+msgstr "Leider ist ein Fehler aufgetreten"
 
 #: src/feedback-comment/comment.js:44
 msgid "Thank you for the message. User feedback is very important for us."
-msgstr "Děkujeme Vám za zaslané informace. Feedback od uživatelů je k nezaplacení."
+msgstr "Vielen Dank für Ihre gesendeten Informationen. Feedback der Benutzer ist für uns unbezahlbar."
 
 #: src/feedback-rating/rating.js:37
 msgid "Thank you for your rating."
-msgstr "Děkujeme za vaše hodnocení."
+msgstr "Vielen Dank für Ihre Einschätzung."
 
 #: templates/feedback-rating/rating.html:14
 msgid "Too difficult"
-msgstr "Příliš těžké"
+msgstr "zu schwierig"
 
 #: templates/feedback-rating/rating.html:8
 msgid "Too easy"
-msgstr "Příliš lehké"
+msgstr "zu einfach"
 
 #: templates/user-login/login-modal.html:27
 #: templates/user-login/signup-modal.html:38
 msgid "Username"
-msgstr "Uživatelské jméno"
+msgstr "Benutzername"
 
 #: templates/feedback-comment/comment.html:2
 msgid "Write to us"
-msgstr "Napište nám"
+msgstr "Schreiben Sie uns"
 
 #: templates/feedback-rating/rating.html:3
 msgid "Your answer helps us adjust difficulty of questions."
-msgstr "Svou odpovědí nám pomáháte přizpůsobovat obtížnost otázek."
+msgstr "Mit ihrer Antwort helfen sie uns die Schwierigkeit der Fragen anzupassen"
 
 #: templates/feedback-comment/comment.html:10
 msgid "Your e-mail address (optional)"
-msgstr "Váš e-mail (nepovinné)"
+msgstr "Ihre E-Mail-Adresse"
 
 #: templates/user-login/signup-modal.html:7
 msgid "and get all the benefits of registered users."
-msgstr "a získejte všechny výhody registrovaných uživatelů."
+msgstr "und genießen Sie alle Vorteile der registrierten Benutzer."
 
 #: templates/user-login/signup-modal.html:27
 msgid "via E-mail"
-msgstr "přes E-mail"
+msgstr "per E-Mail"
 
 #: templates/user-login/login-modal.html:17
 #: templates/user-login/signup-modal.html:21
 msgid "via Facebook"
-msgstr "přes Facebook"
+msgstr "via Facebook"
 
 #: templates/user-login/login-modal.html:11
 #: templates/user-login/signup-modal.html:15
 msgid "via Google"
-msgstr "přes Google"
+msgstr "via Google"
