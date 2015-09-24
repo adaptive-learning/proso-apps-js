@@ -17,6 +17,7 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
 
     // called on create and set reset
     self.initSet = function(configName){
+        self.flushAnswerQueue();
         var key = "practice." + configName + ".";
         config.set_length = configService.getConfig("proso_flashcards", key + "set_length", 10);
         config.fc_queue_size_max = configService.getConfig("proso_flashcards", key + "fc_queue_size_max", 1);
@@ -27,7 +28,6 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
         self.setFilter({});
         current = 0;
         currentFC = null;
-        self.flushAnswerQueue();
         self.clearQueue();
         deferredFC = null;
         setId++;
