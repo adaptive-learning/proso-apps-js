@@ -3,7 +3,7 @@ var fs = require('fs');
 
 module.exports = function(grunt) {
     'use strict';
-    var version = '1.1.1';
+    var version = '1.1.2';
     var version_parts = version.split(".");
     version_parts = {
         major: parseInt(version_parts[0]),
