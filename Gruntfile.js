@@ -3,7 +3,7 @@ var fs = require('fs');
 
 module.exports = function(grunt) {
     'use strict';
-    var version = '1.2.0';
+    var version = '1.2.1';
     var master = true;
     var version_parts = version.split(".");
     version_parts = {
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
                     'if [ -d proso-apps-js-bower ]; then rm -rf proso-apps-js-bower; fi',
                     'git clone git@github.com:adaptive-learning/proso-apps-js-bower.git',
                     'cd proso-apps-js-bower',
-                    'git checkout -b <%= bowerBranch %> || git checkout <%= bowerBranch %>',
+                    '(git checkout <%= bowerBranch %> || git checkout -b <%= bowerBranch %> )',
                     'cp ../*.js .',
                     'cp ../*.css .',
                     'cp ../*.map .',
@@ -66,6 +66,7 @@ module.exports = function(grunt) {
             },
             bower_release: {
                 command: [
+                    'cd <%= dist %>/proso-apps-js-bower',
                     'git tag <%= version.major %>.<%= version.minor %>.<%= version.patch %>',
                     'git push origin <%= version.major %>.<%= version.minor %>.<%= version.patch %>'
                 ].join(' && ')
