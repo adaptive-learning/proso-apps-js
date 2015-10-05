@@ -3,6 +3,13 @@ var fs = require('fs');
 
 module.exports = function(grunt) {
     'use strict';
+    var version = '1.2.1';
+    var version_parts = version.split(".");
+    version_parts = {
+        major: parseInt(version_parts[0]),
+        minor: parseInt(version_parts[1]),
+        patch: parseInt(version_parts[2])
+    };
 
     grunt.initConfig({
         ngversion: '1.3.13',
@@ -12,7 +19,8 @@ module.exports = function(grunt) {
         modules: [],
         pkg: grunt.file.readJSON('package.json'),
         dist: 'dist',
-        bowerBranch: '1.2.X',
+        version: {major: version_parts.major, minor: version_parts.minor, patch: version_parts.patch},
+        bowerBranch: version_parts.major + "." + version_parts.minor + ".X",
         filename: 'proso-apps',
         meta: {
             servicemodules: 'angular.module("proso.apps", ["proso.apps.tpls", <%= srcServiceModules %>, "proso.apps.common-toolbar"])',
@@ -33,10 +41,10 @@ module.exports = function(grunt) {
             cssFileBanner: '/* Include this file in your html if you are using the CSP mode. */\n\n',
             cssFileDest: '<%= dist %>/<%= filename %>-csp.css',
             banner: ['/*',
-                     ' * <%= pkg.name %>',
-                     ' * Version: <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>',
-                     ' * License: <%= pkg.license %>',
-                     ' */\n'].join('\n')
+                ' * <%= pkg.name %>',
+                ' * Version: <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>',
+                ' * License: <%= pkg.license %>',
+                ' */\n'].join('\n')
         },
         shell: {
             bower: {
@@ -52,6 +60,19 @@ module.exports = function(grunt) {
                     'git add .',
                     'git commit -m "automatic update"',
                     'git push origin version-<%= bowerBranch %>',
+                    'git tag <%= version.major %>.<%= version.minor %>.<%= version.patch %>',
+                    'git push origin <%= version.major %>.<%= version.minor %>.<%= version.patch %>'
+                ].join(' && ')
+            },
+            increase_patch: {
+                command: [
+                    'git checkout master-<%= bowerBranch %>',
+                    'git tag <%= version.major %>.<%= version.minor %>.<%= version.patch %>',
+                    'git push origin <%= version.major %>.<%= version.minor %>.<%= version.patch %>',
+                    'sed -i "s/var version = \'.*\';/var version = \'<%= version.major %>.<%= version.minor %>.<%= version.patch + 1 %>\';/g" Gruntfile.js',
+                    'git add Gruntfile.js',
+                    'git commit -m "start working on version"',
+                    'git push origin'
                 ].join(' && ')
             }
         },
@@ -162,13 +183,13 @@ module.exports = function(grunt) {
             },
             demoassets: {
                 files: [{
-                expand: true,
-                //Don't re-copy html files, we process those
-                src: ['**/**/*', '!**/*.html'],
-                cwd: 'misc/demo',
-                dest: 'dist/'
-            }]
-          }
+                    expand: true,
+                    //Don't re-copy html files, we process those
+                    src: ['**/**/*', '!**/*.html'],
+                    cwd: 'misc/demo',
+                    dest: 'dist/'
+                }]
+            }
         },
         nggettext_extract: {
             pot: {
@@ -233,7 +254,7 @@ module.exports = function(grunt) {
         module.cssFiles.forEach(processCSS.bind(null, styles, true));
         if (styles.css.length) {
             module.css = styles.css.join('\n');
-             module.cssJs = styles.js.join('\n');
+            module.cssJs = styles.js.join('\n');
         }
 
         module.dependencies.forEach(findModule);
@@ -241,9 +262,9 @@ module.exports = function(grunt) {
     }
 
     /**
-    * Logic from AngularJS
-    * https://github.com/angular/angular.js/blob/36831eccd1da37c089f2141a2c073a6db69f3e1d/lib/grunt/utils.js#L121-L145
-    */
+     * Logic from AngularJS
+     * https://github.com/angular/angular.js/blob/36831eccd1da37c089f2141a2c073a6db69f3e1d/lib/grunt/utils.js#L121-L145
+     */
     function processCSS(state, minify, file) {
         /* jshint quotmark: false */
         var css = fs.readFileSync(file).toString(), js;
@@ -307,7 +328,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('after-test', ['build', 'copy']);
     grunt.registerTask('default', ['before-test', 'test', 'after-test']);
-    grunt.registerTask('bower', ['shell:bower']);
+    grunt.registerTask('release_patch', ['shell:increase_patch', 'shell:bower']);
     grunt.registerTask('build', 'Build PROSO Apps -- javascript', function() {
         var _ = grunt.util._;
 
@@ -323,14 +344,14 @@ module.exports = function(grunt) {
         grunt.config('srcServiceModules', _.pluck(serviceModules, 'moduleName'));
         grunt.config('tplModules', _.pluck(modules, 'tplModules').filter(function(tpls) { return tpls.length > 0;} ));
         grunt.config('demoModules', modules
-            .filter(function(module) {
-                return module.docs.md && module.docs.js && module.docs.html;
-            })
-            .sort(function(a, b) {
-                if (a.name < b.name) { return -1; }
-                if (a.name > b.name) { return 1; }
-                return 0;
-            })
+                .filter(function(module) {
+                    return module.docs.md && module.docs.js && module.docs.html;
+                })
+                .sort(function(a, b) {
+                    if (a.name < b.name) { return -1; }
+                    if (a.name > b.name) { return 1; }
+                    return 0;
+                })
         );
 
         var cssStrings = _.flatten(_.compact(_.pluck(modules, 'css')));
@@ -346,7 +367,7 @@ module.exports = function(grunt) {
 
         var moduleFileMapping = _.clone(modules, true);
         moduleFileMapping.forEach(function (module) {
-          delete module.docs;
+            delete module.docs;
         });
 
         grunt.config('moduleFileMapping', moduleFileMapping);
