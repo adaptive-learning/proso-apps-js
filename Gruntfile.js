@@ -86,12 +86,17 @@ module.exports = function(grunt) {
                 command: [
                     'git checkout master',
                     'git branch master-<%= version.major %>.<%= version.minor %>.X',
-                    'git push origin master-<%= version.major %>.<%= version.minor %>.X',
 
                     'sed -i "s/var version = \'.*\';/var version = \'<%= version.major %>.<%= version.minor + 1 %>.0\';/g" Gruntfile.js',
                     'git add Gruntfile.js',
                     'git commit -m "start working on version <%= version.major %>.<%= version.minor + 1%>.0"',
-                    'git push origin'
+                    'git push origin',
+
+                    'git checkout master-<%= version.major %>.<%= version.minor %>.X',
+                    'sed -i "s/var master = true;/var version = false;/g" Gruntfile.js',
+                    'git add Gruntfile.js',
+                    'git commit -m "new branch for version <%= version.major %>.<%= version.minor %>.X"',
+                    'git push origin master-<%= version.major %>.<%= version.minor %>.X'
                 ].join(' && ')
             }
         },
