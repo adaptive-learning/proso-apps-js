@@ -25,11 +25,11 @@ m.service("userStatsService", ["$http", "$cookies", function($http, $cookies){
     self.getStats = function(mastered, username){
         $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
         var params = {filters: JSON.stringify(filters)};
-        if (mastered){
-            params.mastered = true;
-        }
         if (username){
             params.username = username;
+        }
+        if (mastered){
+            params.mastered = true;
         }
         return $http.get("/flashcards/user_stats/", {params: params});
     };
