@@ -3,7 +3,7 @@ var fs = require('fs');
 
 module.exports = function(grunt) {
     'use strict';
-    var version = '1.1.3';
+    var version = '1.1.2';
     var master = false;
     var version_parts = version.split(".");
     version_parts = {
@@ -66,6 +66,7 @@ module.exports = function(grunt) {
             },
             bower_release: {
                 command: [
+                    'cd <%= dist %>/proso-apps-js-bower',
                     'git tag <%= version.major %>.<%= version.minor %>.<%= version.patch %>',
                     'git push origin <%= version.major %>.<%= version.minor %>.<%= version.patch %>'
                 ].join(' && ')
