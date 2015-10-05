@@ -55,7 +55,7 @@ module.exports = function(grunt) {
                     'if [ -d proso-apps-js-bower ]; then rm -rf proso-apps-js-bower; fi',
                     'git clone git@github.com:adaptive-learning/proso-apps-js-bower.git',
                     'cd proso-apps-js-bower',
-                    'git checkout -b <%= bowerBranch %> || git checkout <%= bowerBranch %>',
+                    '(git checkout <%= bowerBranch %> || git checkout -b <%= bowerBranch %> )',
                     'cp ../*.js .',
                     'cp ../*.css .',
                     'cp ../*.map .',
