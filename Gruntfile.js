@@ -4,6 +4,7 @@ var fs = require('fs');
 module.exports = function(grunt) {
     'use strict';
     var version = '1.1.2';
+    var master = false;
     var version_parts = version.split(".");
     version_parts = {
         major: parseInt(version_parts[0]),
@@ -20,7 +21,8 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         dist: 'dist',
         version: {major: version_parts.major, minor: version_parts.minor, patch: version_parts.patch},
-        bowerBranch: version_parts.major + "." + version_parts.minor + ".X",
+        bowerBranch: master ? "master" : "version-" + version_parts.major + "." + version_parts.minor + ".X",
+        branch: master ? "master" : "master-" + version_parts.major + "." + version_parts.minor + ".X",
         filename: 'proso-apps',
         meta: {
             servicemodules: 'angular.module("proso.apps", ["proso.apps.tpls", <%= srcServiceModules %>, "proso.apps.common-toolbar"])',
@@ -53,25 +55,41 @@ module.exports = function(grunt) {
                     'if [ -d proso-apps-js-bower ]; then rm -rf proso-apps-js-bower; fi',
                     'git clone git@github.com:adaptive-learning/proso-apps-js-bower.git',
                     'cd proso-apps-js-bower',
-                    'git checkout version-<%= bowerBranch %>',
+                    'git checkout -b <%= bowerBranch %> || git checkout <%= bowerBranch %>',
                     'cp ../*.js .',
                     'cp ../*.css .',
                     'cp ../*.map .',
                     'git add .',
                     'git commit -m "automatic update"',
-                    'git push origin version-<%= bowerBranch %>',
+                    'git push origin <%= bowerBranch %>'
+                ].join(' && ')
+            },
+            bower_release: {
+                command: [
                     'git tag <%= version.major %>.<%= version.minor %>.<%= version.patch %>',
                     'git push origin <%= version.major %>.<%= version.minor %>.<%= version.patch %>'
                 ].join(' && ')
             },
             increase_patch: {
                 command: [
-                    'git checkout master-<%= bowerBranch %>',
+                    'git checkout <%= branch %>',
                     'git tag <%= version.major %>.<%= version.minor %>.<%= version.patch %>',
                     'git push origin <%= version.major %>.<%= version.minor %>.<%= version.patch %>',
                     'sed -i "s/var version = \'.*\';/var version = \'<%= version.major %>.<%= version.minor %>.<%= version.patch + 1 %>\';/g" Gruntfile.js',
                     'git add Gruntfile.js',
-                    'git commit -m "start working on version"',
+                    'git commit -m "start working on version <%= version.major %>.<%= version.minor %>.<%= version.patch + 1 %>"',
+                    'git push origin'
+                ].join(' && ')
+            },
+            start_new_version: {
+                command: [
+                    'git checkout master',
+                    'git branch master-<%= version.major %>.<%= version.minor %>.X',
+                    'git push origin master-<%= version.major %>.<%= version.minor %>.X',
+
+                    'sed -i "s/var version = \'.*\';/var version = \'<%= version.major %>.<%= version.minor + 1 %>.0\';/g" Gruntfile.js',
+                    'git add Gruntfile.js',
+                    'git commit -m "start working on version <%= version.major %>.<%= version.minor + 1%>.0"',
                     'git push origin'
                 ].join(' && ')
             }
@@ -328,7 +346,8 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('after-test', ['build', 'copy']);
     grunt.registerTask('default', ['before-test', 'test', 'after-test']);
-    grunt.registerTask('release_patch', ['shell:increase_patch', 'shell:bower']);
+    grunt.registerTask('release_patch', ['shell:increase_patch', 'shell:bower', 'shell:bower_release']);
+    grunt.registerTask('start_new_version', ['shell:start_new_version']);
     grunt.registerTask('build', 'Build PROSO Apps -- javascript', function() {
         var _ = grunt.util._;
 
