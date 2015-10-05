@@ -10,4 +10,6 @@
 
 #### Start new version
 
+crate new branch for current minor version and increase minor version in master
+
 `grunt start_new_version`
