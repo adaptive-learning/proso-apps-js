@@ -22,6 +22,11 @@ m.service("userStatsService", ["$http", "$cookies", function($http, $cookies){
         }
     };
 
+    self.getFlashcardCounts = function(){
+        $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+        return $http.post("/flashcards/flashcard_counts/", filters);
+    };
+
     self.getStats = function(mastered, username){
         $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
         var params = {filters: JSON.stringify(filters)};
