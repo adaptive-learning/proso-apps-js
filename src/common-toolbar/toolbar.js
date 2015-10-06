@@ -69,9 +69,8 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         }
         $scope.drawABTestingBar();
     };
-
-    $scope.showFlashcardsPractice = function() {
-        $scope.flashcardsAnswers = [];
+    
+    var getFlashcardFilterParams = function(){
         var params = {
             limit: $scope.flashcardsLimit
         };
@@ -90,14 +89,23 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                 $scope.flashcardsTypes.split(',').map(function(x) { return x.trim(); })
             );
         }
+        return params;
+    };
+
+    $scope.showFlashcardsPractice = function() {
+        $scope.flashcardsAnswers = [];
+        var params = getFlashcardFilterParams();
+
         $http.get('/flashcards/practice_image', {params: params}).success(function(response) {
             document.getElementById("flashcardsChart").innerHTML = response;
         });
     };
 
     $scope.showFlashcardsAnswers = function() {
+        var params = getFlashcardFilterParams();
+
         document.getElementById("flashcardsChart").innerHTML = '';
-        $http.get('/flashcards/answers', {params: {limit: $scope.flashcardsLimit}}).success(function(response) {
+        $http.get('/flashcards/answers', {params: params}).success(function(response) {
             $scope.flashcardsAnswers = response.data;
         });
     };
