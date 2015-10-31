@@ -4,7 +4,7 @@ if (loggingServiceLoaded){
 }
 loggingServiceLoaded = true;
 
-var m = angular.module('proso.apps.common-logging', []);
+var m = angular.module('proso.apps.common-logging', ['proso.apps.common-config']);
 
 m.factory("loggingService", ["$window", function($window) {
     if (!!$window.loggingService){
@@ -96,10 +96,14 @@ m.factory("serverLogger", [function() {
 }]);
 
 m.config(["$provide", function($provide) {
-    $provide.decorator("$exceptionHandler", ["serverLogger", "$delegate", function(serverLogger, $delegate) {
+    var configService;
+    $provide.decorator("$exceptionHandler", ["serverLogger", "$injector", "$delegate", function(serverLogger, $injector, $delegate) {
         return function(exception, cause) {
+            configService = configService || $injector.get("configService");
             $delegate(exception, cause);
-            serverLogger.error({exception: exception.message});
+            if (configService.getConfig("proso_common", "logging.js_errors", false)) {
+                serverLogger.error({exception: exception.message});
+            }
         };
     }]);
 }]);
