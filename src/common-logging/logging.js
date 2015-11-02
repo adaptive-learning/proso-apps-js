@@ -73,6 +73,8 @@ m.factory("serverLogger", [function() {
             },
             contentType: "application/json",
             data: angular.toJson(jsonEvent)
+        }).always(function() {
+            delete processing[eventKey];
         });
     };
 
