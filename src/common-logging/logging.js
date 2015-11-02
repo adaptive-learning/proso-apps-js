@@ -42,24 +42,30 @@ m.factory("serverLogger", [function() {
     var self = this;
     var processing = {};
 
-    self.debug = function(jsonEvent) {
-        self.log(jsonEvent, "debug");
+    self.debug = function(message, data) {
+        self.log(message, data, "debug");
     };
 
-    self.info = function(jsonEvent) {
-        self.log(jsonEvent, "info");
+    self.info = function(message, data) {
+        self.log(message, data, "info");
     };
 
-    self.warn = function(jsonEvent) {
-        self.log(jsonEvent, "warn");
+    self.warn = function(message, data) {
+        self.log(message, data, "warn");
     };
 
-    self.error = function(jsonEvent) {
-        self.log(jsonEvent, "error");
+    self.error = function(message, data) {
+        self.log(message, data, "error");
     };
 
-    self.log = function(jsonEvent, level) {
-        jsonEvent['level'] = level;
+    self.log = function(message, data, level) {
+        var jsonEvent = {
+            message: message,
+            level: level
+        };
+        if (data) {
+            jsonEvent['data'] = data;
+        }
         var eventKey = angular.toJson(jsonEvent);
         if (processing[eventKey]) {
             return;
@@ -104,7 +110,7 @@ m.config(["$provide", function($provide) {
             configService = configService || $injector.get("configService");
             $delegate(exception, cause);
             if (configService.getConfig("proso_common", "logging.js_errors", false)) {
-                serverLogger.error({exception: exception.message});
+                serverLogger.error(exception.message);
             }
         };
     }]);
