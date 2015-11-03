@@ -63,7 +63,7 @@ m.factory("serverLogger", [function() {
             message: message,
             level: level
         };
-        if (data) {
+        if (data !== undefined) {
             jsonEvent['data'] = data;
         }
         var eventKey = angular.toJson(jsonEvent);
@@ -110,7 +110,7 @@ m.config(["$provide", function($provide) {
             configService = configService || $injector.get("configService");
             $delegate(exception, cause);
             if (configService.getConfig("proso_common", "logging.js_errors", false)) {
-                serverLogger.error(exception.message);
+                serverLogger.error(exception.message, {'stack': exception.stack.split('\n').map(function (line) { return line.trim(); })});
             }
         };
     }]);
