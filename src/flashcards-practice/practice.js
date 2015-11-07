@@ -227,7 +227,7 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
                     }
                 }else{
                     contexts[fc.context_id] = "loading";
-                    $http.get("/flashcards/context/" + fc.context_id)
+                    $http.get("/flashcards/context/" + fc.context_id, {cache: true})
                         .success(function(response){
                             contexts[fc.context_id] = response.data;
                             _resolvePromise();
