@@ -3,7 +3,7 @@ var fs = require('fs');
 
 module.exports = function(grunt) {
     'use strict';
-    var version = '1.3.0';
+    var version = '1.3.1';
     var master = true;
     var version_parts = version.split(".");
     version_parts = {
