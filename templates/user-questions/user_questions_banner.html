@@ -1,0 +1,46 @@
+<div class="bottom-alert text-center alert alert-{{question.saved ? 'success' : 'info'}} form-inline"
+  ng-repeat="question in questions"
+  ng-if="!userService.status.loading && userService.user.profile.number_of_answers >= 2">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+      track-click="close user question banner">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only" translate>Close</span>
+  </button>
+  <div ng-if="!question.saved">
+    <span>
+    {{question.content}}
+    </span>
+    <input ng-model="question.answer"
+      ng-if="question.answer_type != 'c'"
+      class="form-control"
+      typeahead-min-length="0"
+      typeahead="option as option.content for option in question.possible_answers |
+        filter:{content: $viewValue} |
+        limitTo:($viewValue.length ? $viewValue.length * 2 : 2)">
+    </input>
+    <span ng-model="question.answer"
+      ng-repeat="option in question.possible_answers"
+      ng-if="question.answer_type == 'c'"
+      ng-bind="option.content"
+      ng-click="saveUserQuesiton(question, option)"
+      class="btn btn-default">
+    </span>
+    <a href=""
+       class="btn btn-primary"
+       ng-if="question.answer_type != 'c'"
+       track-click="user question banner"
+       ng-click="saveUserQuesiton(question)"
+       ng-disabled="question.processing || !question.answer"
+      >
+      <span translate ng-if="question.processing">Saving...</span>
+      <span translate ng-if="!question.processing">Save</span>
+    </a>
+    <div ng-if="question.answer_type == 'm'">
+    <br> <br> <br> <br>
+    </div>
+  </div>
+  <div ng-if="question.saved" translate>
+    Thank you for your response.
+  </div>
+</div>
+
