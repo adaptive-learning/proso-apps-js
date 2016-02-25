@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: proso-apps-js\n"
-"PO-Revision-Date: 2015-09-12 18:23+0000\n"
+"PO-Revision-Date: 2016-02-25 18:05+0000\n"
 "Last-Translator: Vít Stanislav <slaweet@seznam.cz>\n"
 "Language-Team: Spanish (http://www.transifex.com/adaptive-learning/proso-apps-js/language/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,6 +18,7 @@ msgstr "Adecuado"
 
 #: templates/feedback-comment/comment.html:21
 #: templates/feedback-rating/rating.html:26
+#: templates/user-questions/user_questions_banner.html:7
 msgid "Close"
 msgstr "Cerrar"
 
@@ -52,6 +53,14 @@ msgstr "Contraseña de nuevo"
 msgid "Registration was successful. You can continue to use the application."
 msgstr "Registro exitoso. Puedes continuar usando la aplicación."
 
+#: templates/user-questions/user_questions_banner.html:36
+msgid "Save"
+msgstr ""
+
+#: templates/user-questions/user_questions_banner.html:35
+msgid "Saving..."
+msgstr ""
+
 #: templates/feedback-comment/comment.html:18
 msgid "Send"
 msgstr "Enviar"
@@ -79,6 +88,10 @@ msgstr "Gracias por tu mensaje. Tu opinión es muy importante para nosotros."
 #: src/feedback-rating/rating.js:37
 msgid "Thank you for your rating."
 msgstr "Gracias por calificarnos."
+
+#: templates/user-questions/user_questions_banner.html:42
+msgid "Thank you for your response."
+msgstr ""
 
 #: templates/feedback-rating/rating.html:14
 msgid "Too difficult"
