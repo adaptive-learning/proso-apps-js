@@ -350,7 +350,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('before-test', ['jshint', 'html2js']);
     grunt.registerTask('test', ['jasmine']);
-    grunt.registerTask('after-test', ['build', 'copy']);
+    grunt.registerTask('after-test', ['nggettext_extract', 'nggettext_compile', 'build', 'copy']);
     grunt.registerTask('default', ['before-test', 'test', 'after-test']);
     grunt.registerTask('release_patch', ['shell:bower', 'shell:bower_release', 'shell:increase_patch']);
     grunt.registerTask('start_new_version', ['shell:start_new_version']);
