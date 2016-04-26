@@ -199,6 +199,10 @@ m.service("userService", ["$http", function($http){
         _openPopup('/login/facebook/', '/user/close_popup/');
     };
 
+    self.loginEdookit = function() {
+        _openPopup('/login/edookit/', '/user/close_popup/');
+    };
+
     var _openPopup = function(url, next){
         var settings = 'height=700,width=700,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=yes,directories=no,status=yes';
         url += "?next=" + next;
