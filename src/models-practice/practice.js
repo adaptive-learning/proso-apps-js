@@ -111,10 +111,10 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
                 answer.meta = currentQuestion.practice_meta;
             }
         }
-        if (currentQuestion.options){
+        if (currentQuestion.payload.options && currentQuestion.payload.options.length){
             answer.option_ids = [];
-            currentQuestion.options.forEach(function(o){
-                if (o.id !== currentQuestion.id) {
+            currentQuestion.payload.options.forEach(function(o){
+                if (o.id !== currentQuestion.payload.id) {
                     answer.option_ids.push(o.id);
                 }
             });
