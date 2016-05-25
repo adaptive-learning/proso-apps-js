@@ -228,7 +228,7 @@ describe("Practice Service - questions", function() {
 
     it("avoid already loaded questions", function(){
         $httpBackend.expectGET(/\/models\/practice\/?.*/).respond(200, {data: [
-          {payload: {id: 41}}, {payload: {id: 42}}, {payload: {id: 43}}
+          {payload: {item_id: 41}}, {payload: {item_id: 42}}, {payload: {item_id: 43}}
         ]});
         config.proso_models.practice.test.question_queue_size_max = config.proso_models.practice.test.question_queue_size_min = 3;
         $practiceService.initSet("test");
