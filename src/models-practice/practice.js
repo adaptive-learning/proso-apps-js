@@ -177,9 +177,9 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
         if (deferredQuestion && !promiseResolvedTmp) { config.filter.limit ++; }                  // if we promised one question
         config.filter.limit = Math.min(config.filter.limit, config.set_length - current - queue.length);  // check size of set
         if (config.filter.limit === 0) {return;}                         // nothing to do
-        config.filter.avoid = currentQuestion && currentQuestion.payload ? [currentQuestion.payload.id] : [];      // avoid current question
+        config.filter.avoid = currentQuestion && currentQuestion.payload ? [currentQuestion.payload.item_id] : [];      // avoid current question
         queue.forEach(function(question){
-            config.filter.avoid.push(question.payload.id);
+            config.filter.avoid.push(question.payload.item_id);
         });
 
         var filter = _getFilter();
