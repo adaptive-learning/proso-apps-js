@@ -89,18 +89,24 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
     };
 
     // build answer from current question and save
-    self.saveAnswerToCurrentQuestion = function(answeredId, responseTime, meta){
+    self.saveAnswerToCurrentQuestion = function(answeredId, responseTime, meta, extra){
         if (!currentQuestion) {
             console.error("There is no current flashcard");
             return;
         }
         var answer = {
-            flashcard_id: currentQuestion.payload.id,
-            flashcard_answered_id: answeredId,
             response_time: responseTime,
-            question_type: currentQuestion.question_type,
-            answer_class: currentQuestion.answer_class,
+            answer_class: currentQuestion.answer_class
         };
+        if (currentQuestion.answer_class === "flashcard_answer"){
+            answer.flashcard_id = currentQuestion.payload.id;
+            answer.flashcard_answered_id = answeredId;
+            answer.question_type = currentQuestion.question_type;
+        }
+        if (currentQuestion.answer_class === "task_answer"){
+            answer.task_instance_id = currentQuestion.payload.id;
+            answer.correct = answeredId === currentQuestion.payload.id;
+        }
         if (meta) {
             answer.meta = {client_meta: meta};
         }
@@ -118,6 +124,9 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
                     answer.option_ids.push(o.id);
                 }
             });
+        }
+        if (extra){
+            answer = angular.extend(answer, extra);
         }
         self.saveAnswer(answer);
     };
