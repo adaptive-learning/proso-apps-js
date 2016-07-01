@@ -255,10 +255,12 @@ describe("Practice Service - questions", function() {
         for (var i = 1; i <= limit; i++){
             var id = same_id ? 1 : i;
             var question = {
-                "context_id": id
+                "payload": {
+                  "context_id": id
+                }
             };
             if (!without_contexts) {
-                question.context = {id: id, content: 42};
+                question.payload.context = {id: id, content: 42};
             }
             questions.push(question);
         }
@@ -277,7 +279,7 @@ describe("Practice Service - questions", function() {
         $httpBackend.flush();
         $timeout.flush();
 
-        expect(question.context).toBeDefined();
+        expect(question.payload.context).toBeDefined();
     });
 
     it("if cache context - context should have correct id", function(){
@@ -292,7 +294,7 @@ describe("Practice Service - questions", function() {
         $httpBackend.flush();
         $timeout.flush();
 
-        expect(question.context.id).toBe(question.context_id);
+        expect(question.payload.context.id).toBe(question.payload.context_id);
     });
 
     it("if cache context - should load context separately", function(){
@@ -308,11 +310,11 @@ describe("Practice Service - questions", function() {
         $practiceService.getQuestion().then(function(d){question = d;});
         $httpBackend.flush();
         $timeout.flush();
-        expect(question.context.id).toBe(question.context_id);
+        expect(question.payload.context.id).toBe(question.payload.context_id);
 
         $practiceService.getQuestion().then(function(d){question = d;});
         $timeout.flush();
-        expect(question.context.id).toBe(question.context_id);
+        expect(question.payload.context.id).toBe(question.payload.context_id);
     });
 
     it("if cache context - should load context only once", function(){
@@ -326,14 +328,14 @@ describe("Practice Service - questions", function() {
         $practiceService.getQuestion().then(function(d){question = d;});
         $httpBackend.flush();
         $timeout.flush();
-        expect(question.context.id).toBe(question.context_id);
+        expect(question.payload.context.id).toBe(question.payload.context_id);
 
         $practiceService.getQuestion().then(function(d){question2 = d;});
         $timeout.flush();
-        expect(question.context.id).toBe(question.context_id);
+        expect(question.payload.context.id).toBe(question.payload.context_id);
 
         expect(question).not.toBe(question2);
-        expect(question.context).toBe(question2.context);
+        expect(question.payload.context).toBe(question2.payload.context);
     });
 
     it("if not cache context - should not load context", function(){
