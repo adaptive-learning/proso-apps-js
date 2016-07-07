@@ -211,4 +211,101 @@ m.service("userService", ["$http", function($http){
 
     self.init();
 
+    self.updateClasses = function(){
+        self.status.loading = true;
+        _resetError();
+        var promise = $http.get("/user/classes/");
+        promise.success(function(response){
+                var classes = response.data;
+                angular.forEach(classes, function (cls) {
+                    delete cls.owner;
+                });
+                self.user.profile.owner_of = classes;
+            })
+            .error(function(response){
+                self.error = response;
+            })
+            .finally(function(response){
+                self.status.loading = false;
+            });
+        return promise;
+    };
+
+    self.createClass = function(name, code){
+        self.status.loading = true;
+        _resetError();
+        var promise = $http.post("/user/create_class/", {
+            name: name,
+            code: code
+        });
+        promise.success(function(response){
+                var cls = response.data;
+                delete cls.owner;
+                self.user.profile.owner_of.push(cls);
+            })
+            .error(function(response){
+                self.error = response;
+            })
+            .finally(function(response){
+                self.status.loading = false;
+            });
+        return promise;
+    };
+
+    self.joinClass = function (code) {
+        self.status.loading = true;
+        _resetError();
+        var promise = $http.post("/user/join_class/", {
+            code: code
+        });
+        promise.success(function(response){
+                self.user.profile.member_of.push(response.data);
+            })
+            .error(function(response){
+                self.error = response;
+            })
+            .finally(function(response){
+                self.status.loading = false;
+            });
+        return promise;
+    };
+
+    self.createStudent = function(data){
+        self.status.loading = true;
+        _resetError();
+        var promise = $http.post("/user/create_student/", data);
+        promise.success(function(response){
+                angular.forEach(self.user.profile.owner_of, function (cls) {
+                    if (cls.id === data.class){
+                        cls.members.push(response.data);
+                    }
+                });
+            })
+            .error(function(response){
+                self.error = response;
+            })
+            .finally(function(response){
+                self.status.loading = false;
+            });
+        return promise;
+    };
+
+    self.loginStudent = function (id) {
+        self.status.loading = true;
+        _resetError();
+        var promise = $http.post("/user/login_student/", {
+            student: id
+        });
+        promise.success(function(response){
+                _processUser(response.data);
+            })
+            .error(function(response){
+                self.error = response;
+            })
+            .finally(function(response){
+                self.status.loading = false;
+            });
+        return promise;
+    };
+
 }]);
