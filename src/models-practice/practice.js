@@ -110,11 +110,11 @@ m.service("practiceService", ["$http", "$q", "configService", "$cookies", functi
         if (meta) {
             answer.meta = {client_meta: meta};
         }
-        if (currentQuestion.practice_meta) {
+        if (currentQuestion.meta) {
             if (answer.meta) {
-                answer.meta = angular.extend(answer.meta, currentQuestion.practice_meta);
+                answer.meta = angular.extend(answer.meta, currentQuestion.meta);
             } else {
-                answer.meta = currentQuestion.practice_meta;
+                answer.meta = currentQuestion.meta;
             }
         }
         if (currentQuestion.payload.options && currentQuestion.payload.options.length){
