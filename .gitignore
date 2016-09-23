@@ -2,3 +2,4 @@ node_modules
 templates/*/*.js
 *.sw[po]
 dist
+.ropeproject

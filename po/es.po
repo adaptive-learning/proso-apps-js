@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: proso-apps-js\n"
-"PO-Revision-Date: 2016-02-25 18:05+0000\n"
+"PO-Revision-Date: 2016-09-22 12:05+0000\n"
 "Last-Translator: Vít Stanislav <slaweet@seznam.cz>\n"
 "Language-Team: Spanish (http://www.transifex.com/adaptive-learning/proso-apps-js/language/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,11 +12,22 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: templates/feedback-rating/difficulty-rating.html:11
 #: templates/feedback-rating/rating.html:11
 msgid "Appropriate"
 msgstr "Adecuado"
 
+#: templates/feedback-adjustment/adjustment.html:11
+msgid "Bit easier"
+msgstr ""
+
+#: templates/feedback-adjustment/adjustment.html:17
+msgid "Bit harder"
+msgstr ""
+
+#: templates/feedback-adjustment/adjustment.html:32
 #: templates/feedback-comment/comment.html:21
+#: templates/feedback-rating/difficulty-rating.html:27
 #: templates/feedback-rating/rating.html:26
 #: templates/user-questions/user_questions_banner.html:7
 msgid "Close"
@@ -28,6 +39,11 @@ msgid ""
 " comment? We are eager to hear anything you'd like to tell us."
 msgstr "¿Encontraste algún error en el programa? ¿Tienes alguna sugerencia sobre como podemos mejorar? ¿Quieres compartir tu opinión con nosotros? Nos gustaría escuchar lo que tengas que decir."
 
+#: templates/feedback-adjustment/adjustment.html:24
+msgid "Don't know / Don't want to answer"
+msgstr ""
+
+#: templates/feedback-rating/difficulty-rating.html:18
 #: templates/feedback-rating/rating.html:18
 msgid "Don't know / Don't want to rate"
 msgstr "No sé/No quiero calificar"
@@ -36,9 +52,22 @@ msgstr "No sé/No quiero calificar"
 msgid "E-mail"
 msgstr "E-mail"
 
+#: templates/feedback-rating/difficulty-rating.html:2
 #: templates/feedback-rating/rating.html:2
 msgid "How difficult are the questions?"
 msgstr "¿Qué tan difíciles son estas preguntas?"
+
+#: templates/feedback-adjustment/adjustment.html:2
+msgid "How difficult would you like the questions to be?"
+msgstr ""
+
+#: templates/feedback-adjustment/adjustment.html:8
+msgid "Much easier"
+msgstr ""
+
+#: templates/feedback-adjustment/adjustment.html:20
+msgid "Much harder"
+msgstr ""
 
 #: templates/user-login/login-modal.html:31
 #: templates/user-login/signup-modal.html:42
@@ -76,8 +105,9 @@ msgstr "Iniciar sesión"
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: src/feedback-comment/comment.js:51 src/feedback-rating/rating.js:43
-#: src/user-login/login.js:74
+#: src/feedback-adjustment/adjustment.js:54 src/feedback-comment/comment.js:51
+#: src/feedback-rating/difficulty-rating.js:47
+#: src/feedback-rating/rating.js:43 src/user-login/login.js:74
 msgid "Something wrong has happened."
 msgstr "Algo malo ha ocurrido."
 
@@ -85,6 +115,8 @@ msgstr "Algo malo ha ocurrido."
 msgid "Thank you for the message. User feedback is very important for us."
 msgstr "Gracias por tu mensaje. Tu opinión es muy importante para nosotros."
 
+#: src/feedback-adjustment/adjustment.js:48
+#: src/feedback-rating/difficulty-rating.js:41
 #: src/feedback-rating/rating.js:37
 msgid "Thank you for your rating."
 msgstr "Gracias por calificarnos."
@@ -93,10 +125,16 @@ msgstr "Gracias por calificarnos."
 msgid "Thank you for your response."
 msgstr ""
 
+#: templates/feedback-adjustment/adjustment.html:14
+msgid "The same"
+msgstr ""
+
+#: templates/feedback-rating/difficulty-rating.html:14
 #: templates/feedback-rating/rating.html:14
 msgid "Too difficult"
 msgstr "Muy dificil"
 
+#: templates/feedback-rating/difficulty-rating.html:8
 #: templates/feedback-rating/rating.html:8
 msgid "Too easy"
 msgstr "Muy facil"
@@ -110,6 +148,8 @@ msgstr "Nombre de usuario"
 msgid "Write to us"
 msgstr "Sugerencias"
 
+#: templates/feedback-adjustment/adjustment.html:3
+#: templates/feedback-rating/difficulty-rating.html:3
 #: templates/feedback-rating/rating.html:3
 msgid "Your answer helps us adjust difficulty of questions."
 msgstr "Tu respuesta ayuda a ajustar la dificultad de las preguntas."

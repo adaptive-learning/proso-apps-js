@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: proso-apps-js\n"
-"PO-Revision-Date: 2016-02-25 18:06+0000\n"
+"PO-Revision-Date: 2016-09-22 12:08+0000\n"
 "Last-Translator: Vít Stanislav <slaweet@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/adaptive-learning/proso-apps-js/language/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,11 +12,22 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+#: templates/feedback-rating/difficulty-rating.html:11
 #: templates/feedback-rating/rating.html:11
 msgid "Appropriate"
 msgstr "Tak akorát"
 
+#: templates/feedback-adjustment/adjustment.html:11
+msgid "Bit easier"
+msgstr "Trochu lehčí"
+
+#: templates/feedback-adjustment/adjustment.html:17
+msgid "Bit harder"
+msgstr "Trochu těžší"
+
+#: templates/feedback-adjustment/adjustment.html:32
 #: templates/feedback-comment/comment.html:21
+#: templates/feedback-rating/difficulty-rating.html:27
 #: templates/feedback-rating/rating.html:26
 #: templates/user-questions/user_questions_banner.html:7
 msgid "Close"
@@ -28,6 +39,11 @@ msgid ""
 " comment? We are eager to hear anything you'd like to tell us."
 msgstr "Narazili jste na chybu v aplikaci? Máte nápad na vylepšení? Nebo jakýkoliv jiný postřeh či komentář? Zajímá nás všechno, co nám chcete sdělit."
 
+#: templates/feedback-adjustment/adjustment.html:24
+msgid "Don't know / Don't want to answer"
+msgstr "Nevím / Nechci odpovídat"
+
+#: templates/feedback-rating/difficulty-rating.html:18
 #: templates/feedback-rating/rating.html:18
 msgid "Don't know / Don't want to rate"
 msgstr "Nevím / Nechci hodnotit"
@@ -36,9 +52,22 @@ msgstr "Nevím / Nechci hodnotit"
 msgid "E-mail"
 msgstr "E-mail"
 
+#: templates/feedback-rating/difficulty-rating.html:2
 #: templates/feedback-rating/rating.html:2
 msgid "How difficult are the questions?"
 msgstr "Jak těžké se vám zdají otázky?"
+
+#: templates/feedback-adjustment/adjustment.html:2
+msgid "How difficult would you like the questions to be?"
+msgstr "Jak těžké by měly být další otázky?"
+
+#: templates/feedback-adjustment/adjustment.html:8
+msgid "Much easier"
+msgstr "Mnohem lehčí"
+
+#: templates/feedback-adjustment/adjustment.html:20
+msgid "Much harder"
+msgstr "Mnohem těžší"
 
 #: templates/user-login/login-modal.html:31
 #: templates/user-login/signup-modal.html:42
@@ -76,8 +105,9 @@ msgstr "Přihlásit se"
 msgid "Sign Up"
 msgstr "Zaregistrovat se"
 
-#: src/feedback-comment/comment.js:51 src/feedback-rating/rating.js:43
-#: src/user-login/login.js:74
+#: src/feedback-adjustment/adjustment.js:54 src/feedback-comment/comment.js:51
+#: src/feedback-rating/difficulty-rating.js:47
+#: src/feedback-rating/rating.js:43 src/user-login/login.js:74
 msgid "Something wrong has happened."
 msgstr "V aplikaci nastala chyba."
 
@@ -85,6 +115,8 @@ msgstr "V aplikaci nastala chyba."
 msgid "Thank you for the message. User feedback is very important for us."
 msgstr "Děkujeme Vám za zaslané informace. Feedback od uživatelů je k nezaplacení."
 
+#: src/feedback-adjustment/adjustment.js:48
+#: src/feedback-rating/difficulty-rating.js:41
 #: src/feedback-rating/rating.js:37
 msgid "Thank you for your rating."
 msgstr "Děkujeme za vaše hodnocení."
@@ -93,10 +125,16 @@ msgstr "Děkujeme za vaše hodnocení."
 msgid "Thank you for your response."
 msgstr "Děkujeme za odpověď."
 
+#: templates/feedback-adjustment/adjustment.html:14
+msgid "The same"
+msgstr "Stejně těžké"
+
+#: templates/feedback-rating/difficulty-rating.html:14
 #: templates/feedback-rating/rating.html:14
 msgid "Too difficult"
 msgstr "Příliš těžké"
 
+#: templates/feedback-rating/difficulty-rating.html:8
 #: templates/feedback-rating/rating.html:8
 msgid "Too easy"
 msgstr "Příliš lehké"
@@ -110,6 +148,8 @@ msgstr "Uživatelské jméno"
 msgid "Write to us"
 msgstr "Napište nám"
 
+#: templates/feedback-adjustment/adjustment.html:3
+#: templates/feedback-rating/difficulty-rating.html:3
 #: templates/feedback-rating/rating.html:3
 msgid "Your answer helps us adjust difficulty of questions."
 msgstr "Svou odpovědí nám pomáháte přizpůsobovat obtížnost otázek."
