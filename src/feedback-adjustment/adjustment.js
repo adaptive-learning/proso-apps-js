@@ -53,7 +53,7 @@ m.controller('AdjustmentModalInstanceController', [
         $scope.answer = answer;
         $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
 
-        $http.post('/feedback/rating/', {'value': answer / 5 + 6}).success(function(data){
+        $http.post('/feedback/rating/', {'value': answer / 10 + 6}).success(function(data){
             $scope.alerts.push({
                 type : 'success',
                 msg : gettextCatalog.getString('Thank you for your rating.'),
