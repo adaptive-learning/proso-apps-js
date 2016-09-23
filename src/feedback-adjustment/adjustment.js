@@ -3,7 +3,7 @@ var m = angular.module('proso.apps.feedback-adjustment', ['ui.bootstrap', 'gette
 m.controller('AdjustmentModalController', ['$scope', '$rootScope', '$modal', '$routeParams',
         function ($scope, $rootScope, $modal, $routeParams) {
 
-    $scope.openAdjustmentModal = function() {
+    $scope.openAdjustmentModal = function(config) {
         if ($scope.email) {
             $scope.feedback.email = $scope.email;
         }
@@ -13,27 +13,39 @@ m.controller('AdjustmentModalController', ['$scope', '$rootScope', '$modal', '$r
             controller: 'AdjustmentModalInstanceController',
             size: 'lg',
             resolve: {
+                practiceFilter: function () {
+                    return config.filter;
+                },
                 feedback: function () {
                     return $scope.feedback;
-                }
+                },
             }
         });
     };
 
     $rootScope.$on('questionSetFinished', function(event, args) {
-        $scope.openAdjustmentModal();
+        $scope.openAdjustmentModal(args);
     });
 
     $scope.$on('$routeChangeSuccess', function() {
         if ($routeParams.adjustmentrating) {
-          $scope.openAdjustmentModal();
+          var filter = {
+            filter : [[
+              'proso_flashcards_context/' + $routeParams.context,
+            ]],
+          };
+          if ($routeParams.category) {
+            filter.filter.push(['proso_flashcards_category/' + $routeParams.category]);
+          } 
+
+          $rootScope.$emit('questionSetFinished', filter);
         }
     });
 }]);
 
 m.controller('AdjustmentModalInstanceController', [
-        '$scope', '$modalInstance', '$http', '$cookies', 'gettextCatalog', 'customConfig',
-        function($scope, $modalInstance, $http, $cookies, gettextCatalog, customConfig) {
+        '$scope', '$modalInstance', '$http', '$cookies', 'gettextCatalog', 'customConfig', 'practiceFilter',
+        function($scope, $modalInstance, $http, $cookies, gettextCatalog, customConfig, practiceFilter) {
 
     $scope.alerts = [];
 
@@ -55,7 +67,7 @@ m.controller('AdjustmentModalInstanceController', [
             $scope.sending = false;
         });
         $scope.sending = true;
-        customConfig.updateConfig(answer);
+        customConfig.updateConfig(answer, practiceFilter);
     };
 
     $scope.closeAlert = function(index) {
@@ -74,22 +86,28 @@ m.directive('adjustmentModal', ['$window', function ($window) {
     };
 }]);
 
-m.factory('customConfig', ['$http', 'configService', function($http, configService) {
+m.factory('customConfig', ['$http', function($http) {
   var that = {
-    updateConfig: function(answer) {
+    updateConfig: function(answer, practiceFilter) {
         var key = 'item_selector.parameters.target_probability';
         var app_name = 'proso_models';
-        var currentValue = configService.getConfig(app_name, key, 0);
-
-        var data = {
-          app_name: app_name,
-          key : key,
-          value: currentValue + answer,
-          condition_key: '',
-          condition_value: '',
-        };
-        var promise = $http.post('/common/custom_config/', data);
-        return promise;
+        var filter = angular.toJson(practiceFilter);
+        $http.get('common/config/?filter=' + filter).success(function(config) {
+          var currentValue = 0;
+          try {
+            currentValue = config.data.proso_models.item_selector.parameters.target_probability;
+          } catch (e) {
+            console.error(e);
+          }
+          var data = {
+            app_name: app_name,
+            key : key,
+            value: Math.max(0, Math.min(1, currentValue + answer / 100)),
+            condition_key: 'practice_filter',
+            condition_value: filter,
+          };
+          var promise = $http.post('/common/custom_config/', data);
+        });
     },
   };
   return that;
