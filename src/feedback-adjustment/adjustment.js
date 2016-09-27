@@ -1,7 +1,7 @@
 var m = angular.module('proso.apps.feedback-adjustment', ['ui.bootstrap', 'gettext']);
 
-m.controller('AdjustmentModalController', ['$scope', '$rootScope', '$modal', '$routeParams',
-        function ($scope, $rootScope, $modal, $routeParams) {
+m.controller('AdjustmentModalController', ['$scope', '$rootScope', '$modal', '$routeParams', 'configService',
+        function ($scope, $rootScope, $modal, $routeParams, configService) {
 
     $scope.openAdjustmentModal = function(config) {
         if ($scope.email) {
@@ -24,7 +24,9 @@ m.controller('AdjustmentModalController', ['$scope', '$rootScope', '$modal', '$r
     };
 
     $rootScope.$on('questionSetFinished', function(event, args) {
-        $scope.openAdjustmentModal(args);
+        if (configService.getConfig("proso_feedback", "enable_adjustment_modal", false)) {
+            $scope.openAdjustmentModal(args);
+        }
     });
 
     $scope.$on('$routeChangeSuccess', function() {
@@ -44,8 +46,8 @@ m.controller('AdjustmentModalController', ['$scope', '$rootScope', '$modal', '$r
 }]);
 
 m.controller('AdjustmentModalInstanceController', [
-        '$scope', '$modalInstance', '$http', '$cookies', 'gettextCatalog', 'customConfig', 'practiceFilter',
-        function($scope, $modalInstance, $http, $cookies, gettextCatalog, customConfig, practiceFilter) {
+        '$scope', '$modalInstance', '$http', '$cookies', 'gettextCatalog', 'customConfig', 'practiceFilter', 'configService',
+        function($scope, $modalInstance, $http, $cookies, gettextCatalog, customConfig, practiceFilter, configService) {
 
     $scope.alerts = [];
 
@@ -67,7 +69,9 @@ m.controller('AdjustmentModalInstanceController', [
             $scope.sending = false;
         });
         $scope.sending = true;
-        customConfig.updateConfig(answer, practiceFilter);
+        if (!configService.getConfig("proso_feedback", "disable_difficulty_adjustment", false)) {
+            customConfig.updateConfig(answer, practiceFilter);
+        }
     };
 
     $scope.closeAlert = function(index) {
