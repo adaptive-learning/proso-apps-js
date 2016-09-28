@@ -55,21 +55,12 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                         return;
                     }
                     $scope.abExperiment = data[0];
-                    $scope.abExperiment.setups.forEach(function(setup) {
-                        setup.values.forEach(function(value) {
-                            $scope.abExperiment.variables.forEach(function(variable) {
-                                if (variable.id = value.variable_id) {
-                                    value.variable = variable;
-                                }
-                            });
-                        });
-                    });
-                    $scope.drawABTestingBar();
+                    $scope.drawABTestingBar('number_of_users');
                 });
         }
-        $scope.drawABTestingBar();
+        $scope.drawABTestingBar('number_of_users');
     };
-    
+
     var getFlashcardFilterParams = function(){
         var params = {
             limit: $scope.flashcardsLimit
@@ -116,32 +107,18 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         }
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Experiment Setup');
-        data.addColumn('number', 'Number of Answers');
-        data.addColumn({type: 'number', role: 'interval'});
-        data.addColumn({type: 'number', role: 'interval'});
         data.addColumn('number', 'Number of Users');
-        data.addColumn('number', 'Returning Chance');
-        data.addColumn({type: 'number', role: 'interval'});
-        data.addColumn({type: 'number', role: 'interval'});
         data.addRows($scope.abExperiment.setups.map(function(setup) {
             return [
                 'Setup #' + setup.id,
-                setup.stats.number_of_answers.value,
-                setup.stats.number_of_answers.confidence_interval.min,
-                setup.stats.number_of_answers.confidence_interval.max,
                 setup.stats.number_of_users,
-                setup.stats.returning_chance.value,
-                setup.stats.returning_chance.confidence_interval.min,
-                setup.stats.returning_chance.confidence_interval.max,
             ];
         }));
         var view = data;
         var title = 'All';
         if (column) {
             var columns = {
-                number_of_answers: [0, 1, 2, 3],
-                number_of_users: [0, 4],
-                returning_chance: [0, 5, 6, 7],
+                number_of_users: [0, 1],
             };
             title = column;
             view = new google.visualization.DataView(data);
@@ -169,38 +146,36 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         chart.draw(view, options);
     };
 
-    $scope.drawABTestingLearning = function(all_users) {
+    $scope.drawABCurve = function(curve_accessor) {
         if (!$scope.abExperiment) {
             return;
         }
-        var learning_curve_accessor = 'learning_curve';
-        if (all_users) {
-            learning_curve_accessor = 'learning_curve_all_users';
-        }
         var data = new google.visualization.DataTable();
         data.addColumn({type: 'number', role: 'domain'});
-        var length = 0;
+        var length = 9999999;
+        console.log(curve_accessor);
         $scope.abExperiment.setups.forEach(function(setup) {
             data.addColumn('number', 'Setup #' + setup.id);
             data.addColumn({type: 'number', role: 'interval'});
             data.addColumn({type: 'number', role: 'interval'});
-            length = Math.max(setup.stats[learning_curve_accessor].success.length);
+            console.log(setup.stats);
+            length = Math.min(length, setup.stats[curve_accessor].values.length);
         });
         var rows = [];
         for (var i = 0; i < length; i++) {
             var row = [i];
             /*jshint -W083 */
             $scope.abExperiment.setups.forEach(function(setup) {
-                row.push(setup.stats[learning_curve_accessor].success[i].value);
-                row.push(setup.stats[learning_curve_accessor].success[i].confidence_interval.min);
-                row.push(setup.stats[learning_curve_accessor].success[i].confidence_interval.max);
+                row.push(setup.stats[curve_accessor].values[i].value);
+                row.push(setup.stats[curve_accessor].values[i].confidence_interval.min);
+                row.push(setup.stats[curve_accessor].values[i].confidence_interval.max);
             });
             rows.push(row);
         }
         data.addRows(rows);
         var chart = new google.visualization.LineChart(document.getElementById("abChart"));
         var options = {
-            title: 'Learning',
+            title: curve_accessor,
             legend: {
                 position: 'none'
             },
@@ -208,7 +183,7 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                 format: '#.###'
             },
             hAxis: {
-                title: 'Attempt',
+                title: 'Progress',
                 position: 'center'
             },
             intervals: {
