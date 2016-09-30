@@ -156,8 +156,6 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
         console.log(curve_accessor);
         $scope.abExperiment.setups.forEach(function(setup) {
             data.addColumn('number', 'Setup #' + setup.id);
-            data.addColumn({type: 'number', role: 'interval'});
-            data.addColumn({type: 'number', role: 'interval'});
             console.log(setup.stats);
             length = Math.min(length, setup.stats[curve_accessor].values.length);
         });
@@ -167,8 +165,6 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
             /*jshint -W083 */
             $scope.abExperiment.setups.forEach(function(setup) {
                 row.push(setup.stats[curve_accessor].values[i].value);
-                row.push(setup.stats[curve_accessor].values[i].confidence_interval.min);
-                row.push(setup.stats[curve_accessor].values[i].confidence_interval.max);
             });
             rows.push(row);
         }
@@ -185,10 +181,6 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
             hAxis: {
                 title: 'Progress',
                 position: 'center'
-            },
-            intervals: {
-                style: 'area',
-                fillOpacity: 0.2
             },
             lineWidth: 2,
             pointSize: 2,
