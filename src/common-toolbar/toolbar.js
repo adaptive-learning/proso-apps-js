@@ -137,9 +137,9 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
             height: 300,
             intervals: {
                 styel: 'bars',
-                pointSize: 10,
+                pointSize: 2,
                 barWidth: 0,
-                lineWidth: 4,
+                lineWidth: 2,
             },
             chartArea: {'width': '80%', 'height': '80%'}
         };
@@ -190,8 +190,8 @@ m.controller("ToolbarController", ['$scope', '$cookies', 'configService', 'loggi
                 style: 'area',
                 fillOpacity: 0.2
             },
-            lineWidth: 4,
-            pointSize: 10,
+            lineWidth: 2,
+            pointSize: 2,
             curveType: 'function',
             width: 480,
             height: 300,
