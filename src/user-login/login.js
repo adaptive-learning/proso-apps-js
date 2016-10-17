@@ -1,7 +1,7 @@
 var m = angular.module('proso.apps.user-login', ['ui.bootstrap', 'gettext', 'proso.apps.user-user', 'angulartics', 'angulartics.google.analytics']);
 
-m.controller('LoginController', ['$scope', '$modalInstance', 'signupModal', 'userService', 'gettextCatalog', '$analytics',
-    function ($scope, $modalInstance, signupModal, userService, gettextCatalog, $analytics) {
+m.controller('LoginController', ['$scope', '$modalInstance', 'signupModal', 'userService', 'gettextCatalog', '$analytics', '$rootScope',
+    function ($scope, $modalInstance, signupModal, userService, gettextCatalog, $analytics, $rootScope) {
 
     $scope.credentials = {};
     $scope.alerts = [];
@@ -35,6 +35,7 @@ m.controller('LoginController', ['$scope', '$modalInstance', 'signupModal', 'use
             .login($scope.credentials.username, $scope.credentials.password)
             .error($scope.onError)
             .success(function() {
+                $rootScope.$emit('userLogin');
                 $scope.cancel();
             });
     };
